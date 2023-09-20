@@ -1,0 +1,24 @@
+header {
+  display: flex; /* serve para colocar os itens dentro da tag um do lado do outro */
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 50px; /* dar espaço em px entre os itens dentro do display flex */
+  background: rgb(21, 184, 21);
+}
+
+img.logo {
+  width: 90px;
+  height: 90px;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
