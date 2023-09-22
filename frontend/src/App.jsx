@@ -18,7 +18,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
-          <Route path="/" element={<DashBoard />} />
+          <Route path="/dashboard" element={<DashBoard />} />
           <Route
             path="/gerenciamento-de-usuarios"
             element={<ListaUsuarios />}

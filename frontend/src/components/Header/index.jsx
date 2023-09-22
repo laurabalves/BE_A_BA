@@ -1,21 +1,39 @@
 import "./style.css";
 
 import Logo from "../../assets/logo.svg";
-import { PresentationChart, Users } from "phosphor-react";
+import {
+  PresentationChart,
+  Users,
+  File,
+  FolderSimplePlus,
+  SignOut,
+} from "phosphor-react";
 
 export function Header() {
   return (
     <header>
       <img className="eogo" src={Logo} alt="" />
-      <img className="testes" src={Logo} alt="" />
-      <button>
+
+      <a className="header-link">
         <PresentationChart size={32} /> DashBoard{" "}
-      </button>
-      <button>
+      </a>
+      <a className="header-link" href="/gerenciamento-de-usuarios">
         <Users size={32} /> Lista de Usuarios
-      </button>
-      <button>
-        <Users size={32} /> Lista de Usuarios
+      </a>
+      <a className="header-link">
+        <File size={32} /> Gerenciamento de Templates
+      </a>
+      <a className="header-link">
+        <FolderSimplePlus size={32} /> Criar Template
+      </a>
+
+      <div className="head">
+        <p className="user">Usuario:</p>
+        <p className="idUsuario">nome do usuario</p>
+      </div>
+
+      <button className="sair">
+        <SignOut size={32} /> Sair
       </button>
     </header>
   );

@@ -1,26 +1,54 @@
+
+h2 {
+  color: rgb(188, 255, 2);
+  font-size: 32px;
+}
+
 form {
   min-width: 32rem;
-	border-radius: 6px;
-	padding: 2.5rem 3rem;
+  border-radius: 2px;
+  padding: 1.5rem 3rem;
   display: flex;
   flex-direction: column;
-
+  align-items: center;
+  justify-content: space-between;
+  outline: unset;
   padding: 30px;
 
+
   position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 input.login-input {
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-bottom: 27px;
+  padding: 16px;
   text-align: center;
+  outline: unset;
+  border-radius: 12px;
+  background-color: rgb(241, 244, 247);
 }
 
 button[type="submit"] {
-  padding: 10px;
+  padding: 20px 60px;
+  letter-spacing: 1px;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
+  background-color: rgb(188, 255, 2);
+  font-size: 19px;
+}
+
+
+
+header {
+  
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 20px;
+
+}
+h1{
+  color: azure;
 }
