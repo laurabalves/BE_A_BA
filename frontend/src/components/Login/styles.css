@@ -1,28 +1,45 @@
+div.login {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(27, 163, 84);
+  position: absolute;
+}
 
-h2 {
+div.login h2 {
   color: rgb(188, 255, 2);
   font-size: 32px;
 }
 
-form {
+div.login div.login-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+div.login form {
   min-width: 32rem;
   border-radius: 2px;
   padding: 1.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   outline: unset;
   padding: 30px;
-
+  gap: 10px;
 
   position: fixed;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-input.login-input {
+div.login form div.login-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+div.login input.login-input {
   margin-bottom: 27px;
   padding: 16px;
   text-align: center;
@@ -38,17 +55,15 @@ button[type="submit"] {
   border-radius: 7px;
   background-color: rgb(188, 255, 2);
   font-size: 19px;
+  cursor: pointer;
 }
 
-
-
-header {
-  
+div.login div {
   align-items: center;
   justify-content: left;
   margin-bottom: 20px;
-
 }
-h1{
+
+div.login h1 {
   color: azure;
 }

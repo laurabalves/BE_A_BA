@@ -24,7 +24,7 @@ export function App() {
             element={<ListaUsuarios />}
           />
         </Route>
-        <Route path="/login" element={<LoginLayout />}>
+        <Route path="/login">
           <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
