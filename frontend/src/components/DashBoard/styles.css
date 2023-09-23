@@ -1,3 +1,24 @@
-div.dash{
+div.in {
+  position: relative;
+  background-color: rgb(225, 225, 253);
+  height: 500px;
+  padding: 50px;
+}
+
+div.dash {
   background-color: rgb(54, 54, 107);
+}
+
+div.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 15px;
+}
+
+div.qtnArq {
+  background: rgb(27, 163, 84);
+  height: 98px;
+  width: 170px;
+  border-radius: 15px;
 }

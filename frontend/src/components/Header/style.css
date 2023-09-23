@@ -1,7 +1,7 @@
 header {
   display: flex; /* serve para colocar os itens dentro da tag um do lado do outro */
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 50px; /* dar espaço em px entre os itens dentro do display flex */
   background: rgb(27, 163, 84);
 }
@@ -11,7 +11,18 @@ img.logo {
   height: 90px;
 }
 
-a.header-link {
+div.header-info,
+div.header-user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  margin: 0 20px 0 20px;
+}
+
+div.header-info a.header-link {
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -25,7 +36,6 @@ a.header-link {
 }
 
 button.sair {
-  position: fixed;
   right: 20px;
   background-color: yellow;
   color: rgb(8, 8, 6);

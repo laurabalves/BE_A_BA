@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./global.css";
+import "@radix-ui/themes/styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Default layout
 import { DefaultLayout } from "./layouts/DefaultLayout";
