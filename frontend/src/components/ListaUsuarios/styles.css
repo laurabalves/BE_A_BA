@@ -1,0 +1,46 @@
+div.tudo {
+  background-color: rgba(122, 255, 110, 0.397);
+  padding: 100px;
+}
+
+div.usuarios {
+  height: 100%;
+  padding: 0px;
+
+  text-align: center;
+  font-size: 18px;
+}
+
+select {
+  width: 260px;
+  margin-left: 16px;
+  background-color: #f2f2f2;
+  height: 38px;
+  line-height: 38px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
+  color: #515151;
+  font-size: 16px;
+  background:  #dee7e591;
+}
+
+button.editar {
+  background-color: #768d87;
+  border-radius: 28px;
+  border: 1px solid #566963;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 12px 38px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2b665e;
+}
+.editar:hover {
+  background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+  background-color: #6c7c7c;
+}
+.editar:active {
+  position: relative;
+  top: 1px;
+}
