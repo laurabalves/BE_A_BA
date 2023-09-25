@@ -3,10 +3,20 @@ import Table from "react-bootstrap/Table";
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const mockDados = [
+  { nomeArquivo: "Produção", ususario: "Laura", formato: "XXLS", colunas: 6 },
+
+  { nomeArquivo: "Vendas", ususario: "Matheus", formato: "CSV", colunas: 7 },
+
+  { nomeArquivo: "Estoque", ususario: "Eliete", formato: "XLS", colunas: 4 },
+
+  { nomeArquivo: "Liquidação", ususario: "Mayara", formato: "CSV", colunas: 8 },
+];
+
 export function GerenciarTemplate() {
   return (
     <div className="cabeca">
-      <h1>Gerenciamento de Template</h1>
+      <h1>Gerenciamento de Template</h1> <br />
       <div>
         <div className="come">
           <Table striped bordered hover>
@@ -22,67 +32,31 @@ export function GerenciarTemplate() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>xxx</td>
-                <td>Laura</td>
-                <td>XLS</td>
-                <td>4</td>
-                <td>
-                  <button className="botao-ativar">ativar</button>{" "}
-                  <button className="botao-desativar">desativar</button>
-                </td>
-                <td>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
+              {mockDados.map((dado) => {
+                return (
+                  <tr>
+                    <td>{dado.nomeArquivo}</td>
+                    <td>{dado.ususario}</td>
+                    <td>{dado.formato}</td>
+                    <td>{dado.colunas}</td>
+                    <td>
+                      <button className="botao-ativar">ativar</button>{" "}
+                      <button className="botao-desativar">desativar</button>
+                    </td>
+                    <td>
+                      <a className="download" href="">
+                        <CloudArrowDown size={32} />
+                      </a>
+                    </td>
 
-                <td>
-                  <a className="upload" href="">
-                    <CloudArrowUp size={32} />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>zzz</td>
-                <td>Jacob</td>
-                <td>CSV </td>
-                <td>4</td>
-                <td>
-                  <button className="botao-ativar">ativar</button>{" "}
-                  <button className="botao-desativar">desativar</button>
-                </td>
-                <td>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
-                <td>
-                  <a className="upload" href="">
-                    <CloudArrowUp size={32} />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>matheus</td>
-                <td>xls</td>
-                <td>5</td>
-                <td>
-                  <button className="botao-ativar">ativar</button>{" "}
-                  <button className="botao-desativar">desativar</button>
-                </td>
-                <td>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
-                <td>
-                  <a className="upload" href="">
-                    <CloudArrowUp size={32} />
-                  </a>
-                </td>
-              </tr>
+                    <td>
+                      <a className="upload" href="">
+                        <CloudArrowUp size={32} />
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>

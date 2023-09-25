@@ -4,6 +4,34 @@ import Table from "react-bootstrap/Table";
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+const mockDados = [
+  {
+    nomeTemplate: "contabilidade",
+    usuario: "Laura Beatriz",
+    extensao: "XLSX",
+    colunas: 7,
+  },
+  {
+    nomeTemplate: "advogacia",
+    usuario: "Patricia Rodrigues",
+    extensao: "CSV",
+    colunas: 4,
+  },
+  {
+    nomeTemplate: "publicidade",
+    usuario: "Jose Lopes",
+    extensao: "XLS",
+    colunas: 8,
+  },
+];
+
+const iserir = [
+  {
+    nomeArquivo: "Total_distribuidora",
+    colunas: 6,
+  },
+];
+
 export const TemplateUsuario = () => {
   return (
     <div>
@@ -56,58 +84,28 @@ export const TemplateUsuario = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>xxx</td>
-                  <td>Laura</td>
-                  <td>XLS</td>
-                  <td>4</td>
+                {mockDados.map((infos) => {
+                  return (
+                    <tr>
+                      <td>{infos.nomeTemplate}</td>
+                      <td>{infos.usuario}</td>
+                      <td>{infos.extensao}</td>
+                      <td>{infos.colunas}</td>
 
-                  <td>
-                    <a className="download" href="">
-                      <CloudArrowDown size={32} />
-                    </a>
-                  </td>
+                      <td>
+                        <a className="download" href="">
+                          <CloudArrowDown size={32} />
+                        </a>
+                      </td>
 
-                  <td>
-                    <a className="upload" href="">
-                      <CloudArrowUp size={32} />
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>zzz</td>
-                  <td>Jacob</td>
-                  <td>CSV </td>
-                  <td>4</td>
-
-                  <td>
-                    <a className="download" href="">
-                      <CloudArrowDown size={32} />
-                    </a>
-                  </td>
-                  <td>
-                    <a className="upload" href="">
-                      <CloudArrowUp size={32} />
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td>matheus</td>
-                  <td>xls</td>
-                  <td>5</td>
-
-                  <td>
-                    <a className="download" href="">
-                      <CloudArrowDown size={32} />
-                    </a>
-                  </td>
-                  <td>
-                    <a className="upload" href="">
-                      <CloudArrowUp size={32} />
-                    </a>
-                  </td>
-                </tr>
+                      <td>
+                        <a className="upload" href="">
+                          <CloudArrowUp size={32} />
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           </div>
@@ -136,35 +134,19 @@ export const TemplateUsuario = () => {
             </thead>
 
             <tbody>
-              <tr>
-                <td>xxx</td>
-                <td>4</td>
-                <td style={{ width: "200px" }}>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>zzz</td>
-                <td>4</td>
-
-                <td>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>5</td>
-
-                <td>
-                  <a className="download" href="">
-                    <CloudArrowDown size={32} />
-                  </a>
-                </td>
-              </tr>
+              {iserir.map((dados) => {
+                return (
+                  <tr>
+                    <td>{dados.nomeArquivo}</td>
+                    <td>{dados.colunas}</td>
+                    <td style={{ width: "200px" }}>
+                      <a className="download" href="">
+                        <CloudArrowDown size={32} />
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>
