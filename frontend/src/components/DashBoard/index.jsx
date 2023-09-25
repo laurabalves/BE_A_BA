@@ -1,5 +1,6 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
+import { DownloadSimple } from "phosphor-react";
 
 const mockDados = [
   {
@@ -38,11 +39,11 @@ export function DashBoard() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Nome do arquivo</th>
-            <th>Quem criou</th>
-            <th>Data</th>
-            <th>Qtn Campo</th>
-            <th>Download</th>
+            <th className="p-3 bg-success ">Nome do arquivo</th>
+            <th className="p-3 bg-success ">Quem criou</th>
+            <th className="p-3 bg-success ">Data</th>
+            <th className="p-3 bg-success ">Qtn Campo</th>
+            <th className="p-3 bg-success ">Download</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +55,9 @@ export function DashBoard() {
                 <td>{dado.dataCriacao}</td>
                 <td>{dado.qtnCampos}</td>
                 <td>
-                  <button>download</button>
+                  <a className="download" href="">
+                    <DownloadSimple size={32} />{" "}
+                  </a>
                 </td>
               </tr>
             );

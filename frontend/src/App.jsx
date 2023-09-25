@@ -14,6 +14,8 @@ import { DashBoard } from "./components/DashBoard";
 import { Login } from "./components/Login";
 
 import { ListaUsuarios } from "./components/ListaUsuarios";
+import { GerenciarTemplate } from "./components/GerenciarTemplate";
+import { TemplateUsuario } from "./components/TemplateUsuario";
 
 export function App() {
   return (
@@ -25,6 +27,11 @@ export function App() {
             path="/gerenciamento-de-usuarios"
             element={<ListaUsuarios />}
           />
+          <Route
+            path="/gerenciamento-de-template"
+            element={<GerenciarTemplate />}
+          />
+          <Route path="/template-usuario" element={<TemplateUsuario />} />
         </Route>
         <Route path="/login">
           <Route path="/login" element={<Login />} />

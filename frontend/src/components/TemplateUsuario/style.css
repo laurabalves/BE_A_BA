@@ -1,0 +1,13 @@
+.inii {
+  background-color: rgb(221, 14, 14);
+}
+
+.comec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.come th {
+  border-radius: 10px; /* Valor do raio de arredondamento, ajuste conforme necessário */
+}

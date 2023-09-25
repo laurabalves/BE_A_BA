@@ -21,7 +21,7 @@ export function Header() {
         <a className="header-link" href="/gerenciamento-de-usuarios">
           <Users size={32} /> Lista de Usuarios
         </a>
-        <a className="header-link">
+        <a className="header-link" href="/gerenciamento-de-template">
           <File size={32} /> Gerenciamento de Templates
         </a>
         <a className="header-link">
