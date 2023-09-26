@@ -16,6 +16,7 @@ import { Login } from "./components/Login";
 import { ListaUsuarios } from "./components/ListaUsuarios";
 import { GerenciarTemplate } from "./components/GerenciarTemplate";
 import { TemplateUsuario } from "./components/TemplateUsuario";
+import { CriarTemplate } from "./components/CriarTemplate";
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
             element={<GerenciarTemplate />}
           />
           <Route path="/template-usuario" element={<TemplateUsuario />} />
+          <Route path="/criar-template" element={<CriarTemplate />} />
         </Route>
         <Route path="/login">
           <Route path="/login" element={<Login />} />

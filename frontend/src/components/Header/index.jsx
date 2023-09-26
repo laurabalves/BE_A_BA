@@ -24,7 +24,7 @@ export function Header() {
         <a className="header-link" href="/gerenciamento-de-template">
           <File size={32} /> Gerenciamento de Templates
         </a>
-        <a className="header-link">
+        <a className="header-link" href="/criar-template">
           <FolderSimplePlus size={32} /> Criar Template
         </a>
       </div>

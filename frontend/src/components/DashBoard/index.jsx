@@ -33,7 +33,6 @@ export function DashBoard() {
     <div className="in">
       <h1>Dashboard</h1>
       <div>
-        <label htmlFor=""></label>
         <input type="text" placeholder="Pesquisar" />
       </div>
       <Table striped bordered hover>
