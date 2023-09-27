@@ -24,6 +24,34 @@ const mockDados = [
     qtnCampos: 10,
     extensao: "csv",
   },
+  {
+    nomeArquivo: "arquivo_casas_alugadas.xlsx",
+    nomeAutor: "Eliete",
+    dataCriacao: "10-07-2003",
+    qtnCampos: 10,
+    extensao: "csv",
+  },
+  {
+    nomeArquivo: "arquivo_casas_alugadas.xlsx",
+    nomeAutor: "Eliete",
+    dataCriacao: "10-07-2003",
+    qtnCampos: 10,
+    extensao: "csv",
+  },
+  {
+    nomeArquivo: "arquivo_casas_alugadas.xlsx",
+    nomeAutor: "Alan",
+    dataCriacao: "10-07-2003",
+    qtnCampos: 4,
+    extensao: "XLS",
+  },
+  {
+    nomeArquivo: "arquivo_casas_alugadas.xlsx",
+    nomeAutor: "Eliete",
+    dataCriacao: "10-07-2003",
+    qtnCampos: 10,
+    extensao: "csv",
+  },
 ];
 
 export function DashBoard() {

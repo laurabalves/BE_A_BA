@@ -53,7 +53,6 @@ export function CriarTemplate() {
       select: "Opção 1",
     }));
     setBlocos(novoBlocos);
-    console.log("clicavel");
   };
 
   const handleNumeroColunas = (evento) => {
@@ -101,11 +100,6 @@ export function CriarTemplate() {
           onChange={handleConlunas}
         />{" "}
         <br />
-        <p>
-          Clique em OK para preencher o <strong>tipo </strong>e o{" "}
-          <strong>nome</strong> da(s) coluna(s):
-        </p>
-        <input className="enviar" type="submit" value="OK" />
       </form>
       <div className="blocos-container">
         {blocos.map((bloco, index) => (
@@ -123,7 +117,7 @@ export function CriarTemplate() {
                 Numero
               </option>
               <option required value="Opção 2">
-                Letra{" "}
+                Texto
               </option>
               <option required value="Opção 3">
                 Data

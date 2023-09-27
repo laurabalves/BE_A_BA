@@ -18,7 +18,7 @@ export function GerenciarTemplate() {
     <div className="cabeca">
       <h1>Gerenciamento de Template</h1> <br />
       <div>
-        <div className="come">
+        <div className="tabela-header">
           <Table striped hover>
             <thead>
               <tr>

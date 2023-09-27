@@ -19,6 +19,8 @@ export function Header() {
       <div className="header-info">
         <img className="logo" src={Logo} alt="" />
 
+        {/* fazendo a verificacao condicional. se for verdadeira os links serao renderizadossss*/}
+        {/* (tipoUsuario.isAdm === true mesma coisa */}
         {!!tipoUsuario.isAdm && (
           <Link className="header-link" to="/dashboard">
             <PresentationChart size={32} /> DashBoard{" "}
@@ -29,11 +31,18 @@ export function Header() {
             <Users size={32} /> Lista de Usuarios
           </Link>
         )}
-        <Link className="header-link" to="/gerenciamento-de-template">
-          <File size={32} /> Gerenciamento de Templates
-        </Link>
+
+        {!!tipoUsuario.isAdm && (
+          <Link className="header-link" to="/gerenciamento-de-template">
+            <File size={32} /> Gerenciamento de Templates
+          </Link>
+        )}
         <Link className="header-link" to="/criar-template">
           <FolderSimplePlus size={32} /> Criar Template
+        </Link>
+
+        <Link className="header-link" to="/template-usuario">
+          <File size={32} /> Meus arquivos/templates
         </Link>
       </div>
 

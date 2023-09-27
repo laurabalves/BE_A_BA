@@ -14,12 +14,13 @@ div.login div.login-info {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 50px;
   flex-direction: column;
+  text-align: justify;
 }
 
 div.login form {
-  min-width: 32rem;
+  min-width: 57rem;
   border-radius: 2px;
   padding: 1.5rem 3rem;
   outline: unset;
@@ -32,7 +33,7 @@ div.login form {
   transform: translate(-50%, -50%);
 }
 
-div.login form div.login-inputs {
+div.login form div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,20 +42,20 @@ div.login form div.login-inputs {
 
 div.login input.login-input {
   margin-bottom: 27px;
-  padding: 16px;
+  padding: 14px;
   text-align: center;
   outline: unset;
-  border-radius: 12px;
+  border-radius: 11px;
   background-color: rgb(241, 244, 247);
 }
 
 button[type="submit"] {
-  padding: 20px 60px;
+  padding: 12px 40px;
   letter-spacing: 1px;
   border: none;
   border-radius: 7px;
   background-color: rgb(188, 255, 2);
-  font-size: 19px;
+  font-size: 17px;
   cursor: pointer;
 }
 
@@ -66,4 +67,13 @@ div.login div {
 
 div.login h1 {
   color: azure;
+  margin: 0;
+  font-size: 32px;
+  left: 90px;
+  align-items: center;
+  text-align: justify;
+}
+
+.emptyText {
+  color: brown;
 }

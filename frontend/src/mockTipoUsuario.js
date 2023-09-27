@@ -1,4 +1,4 @@
 export const tipoUsuario = {
-  nome: "Laura",
+  nome: "Laura eu",
   isAdm: true,
 };
