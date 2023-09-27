@@ -32,37 +32,41 @@ export function DashBoard() {
   return (
     <div className="in">
       <h1>Dashboard</h1>
-      <div>
-        <input type="text" placeholder="Pesquisar" />
+      <div className="div-pesquisar">
+        <input className="pesquisar" type="text" placeholder="Pesquisar" />
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th className="p-3 bg-success ">Nome do arquivo</th>
-            <th className="p-3 bg-success ">Quem criou</th>
-            <th className="p-3 bg-success ">Data</th>
-            <th className="p-3 bg-success ">Qtn Campo</th>
-            <th className="p-3 bg-success ">Download</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mockDados.map((dado) => {
-            return (
-              <tr>
-                <td>{dado.nomeArquivo}</td>
-                <td>{dado.nomeAutor}</td>
-                <td>{dado.dataCriacao}</td>
-                <td>{dado.qtnCampos}</td>
-                <td>
-                  <a className="download" href="">
-                    <DownloadSimple size={32} />{" "}
-                  </a>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+
+      <div className="tabela-header">
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th className="p-3 bg-success ">Nome do arquivo</th>
+              <th className="p-3 bg-success ">Quem criou</th>
+              <th className="p-3 bg-success ">Data</th>
+              <th className="p-3 bg-success ">Qtn Campo</th>
+              <th className="p-3 bg-success ">Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mockDados.map((dado) => {
+              return (
+                <tr>
+                  <td>{dado.nomeArquivo}</td>
+                  <td>{dado.nomeAutor}</td>
+                  <td>{dado.dataCriacao}</td>
+                  <td>{dado.qtnCampos}</td>
+                  <td>
+                    <a className="download" href="">
+                      <DownloadSimple size={32} />{" "}
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+
       <div className="box">
         <div className="qtnArq">{mockDados.length} arquivos</div>
       </div>

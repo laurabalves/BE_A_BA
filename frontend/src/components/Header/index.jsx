@@ -1,5 +1,7 @@
 import "./style.css";
 
+import { Link } from "react-router-dom";
+
 import Logo from "../../assets/logo.svg";
 import {
   PresentationChart,
@@ -9,24 +11,30 @@ import {
   SignOut,
 } from "phosphor-react";
 
+import { tipoUsuario } from "../../mockTipoUsuario";
+
 export function Header() {
   return (
     <header>
       <div className="header-info">
         <img className="logo" src={Logo} alt="" />
 
-        <a className="header-link" href="/dashboard">
-          <PresentationChart size={32} /> DashBoard{" "}
-        </a>
-        <a className="header-link" href="/gerenciamento-de-usuarios">
-          <Users size={32} /> Lista de Usuarios
-        </a>
-        <a className="header-link" href="/gerenciamento-de-template">
+        {!!tipoUsuario.isAdm && (
+          <Link className="header-link" to="/dashboard">
+            <PresentationChart size={32} /> DashBoard{" "}
+          </Link>
+        )}
+        {!!tipoUsuario.isAdm && (
+          <Link className="header-link" to="/gerenciamento-de-usuarios">
+            <Users size={32} /> Lista de Usuarios
+          </Link>
+        )}
+        <Link className="header-link" to="/gerenciamento-de-template">
           <File size={32} /> Gerenciamento de Templates
-        </a>
-        <a className="header-link" href="/criar-template">
+        </Link>
+        <Link className="header-link" to="/criar-template">
           <FolderSimplePlus size={32} /> Criar Template
-        </a>
+        </Link>
       </div>
 
       <div className="header-user-info">

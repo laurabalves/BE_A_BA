@@ -1,8 +1,13 @@
 div.in {
-  position: relative;
-  background-color: rgb(225, 225, 253);
+  position: center;
+
   height: 500px;
   padding: 50px;
+}
+
+div.in h1 {
+  color: rgb(73, 50, 19);
+  text-align: center;
 }
 
 div.dash {
@@ -16,11 +21,25 @@ div.box {
   gap: 15px;
 }
 
+input.pesquisar {
+  height: 30px;
+  border-radius: 7px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 20%;
+}
+
 div.qtnArq {
   background: rgb(27, 163, 84);
   height: 98px;
   width: 170px;
   border-radius: 15px;
+}
+div.div-pesquisar {
+  text-align: right;
+  margin: 12px;
 }
 
 a.download {
@@ -35,10 +54,13 @@ a.download {
 }
 
 div.qtnArq {
-  width: 120px;
-  height: 60px;
+  height: 80px;
   background: rgb(27, 163, 84);
-  color: rgb(255, 240, 240);
+  color: rgb(245, 245, 245);
   float: right;
   margin-top: 70px;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

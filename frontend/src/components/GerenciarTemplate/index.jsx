@@ -19,7 +19,7 @@ export function GerenciarTemplate() {
       <h1>Gerenciamento de Template</h1> <br />
       <div>
         <div className="come">
-          <Table striped bordered hover>
+          <Table striped hover>
             <thead>
               <tr>
                 <th className="p-3 bg-success ">Nome Template</th>

@@ -1,11 +1,69 @@
+/* div toda*/
+.testandooo {
+  background-color: rgb(229, 255, 216);
+  padding: 25px;
+  width: 630px;
+  height: auto;
+}
+
+/*alinhando os blocos de input e select*/
+div.key {
+  display: flex; /* Torna os elementos filhos flexíveis */
+  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+  align-items: center; /* Alinha verticalmente os elementos ao centro (opcional) */
+  gap: 50px;
+}
+
+/*select dos blocos*/
+.select-bloco {
+  background-color: rgb(241, 253, 249);
+  color: rgb(104, 102, 102);
+  display: block;
+  margin-left: 0px;
+  border-radius: 10px;
+  color: rgb(53, 43, 43);
+}
+/*forumlario*/
 form {
-  margin: 0 auto;
+  margin: 10px;
   text-align: left;
 }
 
-input,
-textarea,
-select {
+/*alinhando tudo os input*/
+div.testandooo input {
   display: block;
-  margin-top: 10px;
+  margin-top: 7px;
+  padding: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 50%;
+  background-color: #f8f1f1;
+}
+
+/*botao*/
+div.testandooo input.enviar {
+  border-radius: 4px;
+  font-size: 17px;
+  width: 20%;
+  background-color: rgb(209, 235, 206);
+  color: black;
+  font-weight: 500;
+}
+
+/*selec de extensao */
+div select.extensao {
+  color: rgb(146, 146, 146);
+  display: block;
+  margin-left: 0px;
+  border-radius: 10px;
+  color: rgb(53, 43, 43);
+}
+
+input[type="number"][name="qntColuna"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 30%;
 }

@@ -4,6 +4,8 @@ import Table from "react-bootstrap/Table";
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import "./style.css";
+
 const mockDados = [
   {
     nomeTemplate: "contabilidade",
@@ -40,47 +42,17 @@ export const TemplateUsuario = () => {
         <br />
 
         <div>
-          <div className="come">
+          <div className="tabela-header">
             <Table striped hover>
               <thead>
                 <tr>
-                  <th
-                    className="p-3 bg-success  "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Nome Template
-                  </th>
-                  <th
-                    className="p-3 bg-success "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Usuario
-                  </th>
-                  <th
-                    className="p-3 bg-success "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Formato
-                  </th>
-                  <th
-                    className="p-3 bg-success "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Colunas
-                  </th>
+                  <th className="p-3 bg-success  ">Nome Template</th>
+                  <th className="p-3 bg-success ">Usuario</th>
+                  <th className="p-3 bg-success ">Formato</th>
+                  <th className="p-3 bg-success ">Colunas</th>
 
-                  <th
-                    className="p-3 bg-success "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Download
-                  </th>
-                  <th
-                    className="p-3 bg-success "
-                    style={{ borderRadius: "10px" }}
-                  >
-                    Upload
-                  </th>
+                  <th className="p-3 bg-success ">Download</th>
+                  <th className="p-3 bg-success ">Upload</th>
                 </tr>
               </thead>
               <tbody>

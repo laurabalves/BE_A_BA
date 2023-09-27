@@ -40,15 +40,22 @@ export function ListaUsuarios() {
   return (
     <div className="tudo">
       <div className="usuarios">
-        <h1>Permissões de usuarios</h1>
-        <br />
+        <h1>Permissões de usuários</h1>
+
         {mockUsuarios.map((dado) => {
           console.log(dado);
           return (
-            <div className="" key={dado.nome}>
-              <p>{dado.nome}</p>
+            <div key={dado.nome}>
+              {" "}
+              <br />
+              <p className="nomes">{dado.nome}</p>
               <select onChange={handleChange}>
-                <option id={dado.id} value="adm" selected={dado.isAdm}>
+                <option
+                  className="option"
+                  id={dado.id}
+                  value="adm"
+                  selected={dado.isAdm}
+                >
                   Administrador
                 </option>
                 <option id={dado.id} value="usuario" selected={!dado.isAdm}>

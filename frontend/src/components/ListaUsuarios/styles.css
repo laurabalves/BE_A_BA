@@ -1,6 +1,8 @@
 div.tudo {
-  background-color: rgba(122, 255, 110, 0.397);
-  padding: 100px;
+  padding: 60px;
+}
+h1 {
+  margin: 0;
 }
 
 div.usuarios {
@@ -12,13 +14,20 @@ div.usuarios {
 }
 
 select {
-  width: 260px;
+  width: 220px;
   margin-left: 16px;
   background-color: #f2f2f2;
   height: 38px;
-  line-height: 38px;
   font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-  color: #515151;
+  color: rgb(53, 43, 43);
   font-size: 16px;
-  background: #dee7e591;
+  border-radius: 10px;
+}
+
+.nomes {
+  height: 20px;
+}
+
+.option {
+  background-color: rgb(231, 202, 202);
 }
