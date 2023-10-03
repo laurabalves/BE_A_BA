@@ -58,7 +58,7 @@ export function CriarTemplate() {
   const handleNumeroColunas = (evento) => {
     evento.preventDefault();
     const blocoArray = [];
-    const qtdColunas = colunas;
+    let qtdColunas = colunas;
     while (qtdColunas) {
       blocoArray.push({ input: "", select: "Opção 1" });
       qtdColunas--;

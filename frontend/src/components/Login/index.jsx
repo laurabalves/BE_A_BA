@@ -1,49 +1,49 @@
 import "./styles.css";
 import Logo from "../../assets/logo.svg";
-import { useState } from "react";
+import { useContext } from "react";
+import { LoginContext } from "../../context/LoginContext";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
-  const [form, setForm] = useState({
-    matricula: "",
-    senha: "",
-  });
+  const navigate = useNavigate();
+  const { handleLogin } = useContext(LoginContext);
+  const { register, handleSubmit } = useForm();
 
-  const handleChange = (e) => {
-    let newProp = form;
-    newProp[e.target.name] = e.target.value;
-    setForm({ ...newProp });
-  };
+  async function handleLoginSubmit(dadosLogin) {
+    try {
+      const { data } = await axios.post("http://localhost:3333/login", {
+        email: dadosLogin.email,
+        senha: dadosLogin.senha,
+      });
 
-  console.log(form);
+      handleLogin(data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    window.location.href = "http://localhost:5173/dashboard";
-  };
   return (
     <div className="login">
       <header>
         <img className="Logo" src={Logo} alt="" />
       </header>
 
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
-      >
+      <form onSubmit={handleSubmit(handleLoginSubmit)}>
         <div className="login-info">
           <h1>Sistema de gerenciamento eletrônico de templates</h1>
           <h2>Login</h2>
         </div>
         <div className="login-inputs">
-          <label>Matricula</label>
+          <label>Email</label>
           <input
-            name="matricula"
+            name="email"
             className="login-input"
             type="text"
             placeholder="Matricula"
-            onChange={(e) => handleChange(e)}
+            {...register("email")}
             required
           />
 
@@ -54,7 +54,7 @@ export function Login() {
             className="login-input"
             type="text"
             placeholder="senha"
-            onBlur={(e) => handleChange(e)}
+            {...register("senha")}
           />
 
           <button type="submit">Acessar</button>

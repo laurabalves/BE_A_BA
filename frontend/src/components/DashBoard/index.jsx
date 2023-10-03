@@ -1,9 +1,12 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
 import { DownloadSimple } from "phosphor-react";
+import { LoginContext } from "../../context/LoginContext";
+import { useContext } from "react";
 
 const mockDados = [
   {
+    id: 1,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Laura",
     dataCriacao: "16-07-2022",
@@ -11,6 +14,7 @@ const mockDados = [
     extensao: "csv",
   },
   {
+    id: 2,
     nomeArquivo: "arquivos_casas_vendidas.xlsx",
     nomeAutor: "Mayara",
     dataCriacao: "12-08-2000",
@@ -18,6 +22,7 @@ const mockDados = [
     extensao: "csv",
   },
   {
+    id: 3,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Eliete",
     dataCriacao: "10-07-2003",
@@ -25,6 +30,7 @@ const mockDados = [
     extensao: "csv",
   },
   {
+    id: 4,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Eliete",
     dataCriacao: "10-07-2003",
@@ -32,6 +38,7 @@ const mockDados = [
     extensao: "csv",
   },
   {
+    id: 5,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Eliete",
     dataCriacao: "10-07-2003",
@@ -39,6 +46,7 @@ const mockDados = [
     extensao: "csv",
   },
   {
+    id: 6,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Alan",
     dataCriacao: "10-07-2003",
@@ -46,6 +54,7 @@ const mockDados = [
     extensao: "XLS",
   },
   {
+    id: 7,
     nomeArquivo: "arquivo_casas_alugadas.xlsx",
     nomeAutor: "Eliete",
     dataCriacao: "10-07-2003",
@@ -56,6 +65,7 @@ const mockDados = [
 
 export function DashBoard() {
   // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
+  const { login } = useContext(LoginContext);
 
   return (
     <div className="in">
@@ -78,7 +88,7 @@ export function DashBoard() {
           <tbody>
             {mockDados.map((dado) => {
               return (
-                <tr>
+                <tr key={dado.id}>
                   <td>{dado.nomeArquivo}</td>
                   <td>{dado.nomeAutor}</td>
                   <td>{dado.dataCriacao}</td>
