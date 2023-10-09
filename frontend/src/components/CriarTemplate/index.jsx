@@ -1,12 +1,11 @@
 import "./styles.css";
-import "./styles.css";
 import { useState } from "react";
 
 export function CriarTemplate() {
-  //gerenciamento de dados
+  // Gerenciamento de dados
 
-  // colunas
-  const [colunas, setqntColunas] = useState();
+  // Colunas
+  const [colunas, setqntColunas] = useState(0); // Defina um valor padrão para colunas
   const handleConlunas = (e) => {
     setqntColunas(e.target.value);
     const blocoArray = [];
@@ -18,34 +17,22 @@ export function CriarTemplate() {
     }
     setBlocos(blocoArray);
   };
-  console.log(colunas);
 
-  //nome do template
-  const [name, setName] = useState();
+  // Nome do template
+  const [name, setName] = useState("");
   const handleName = (e) => {
     setName(e.target.value);
   };
-  console.log(name);
 
-  // blocos de input
+  // Blocos de input
   const [blocos, setBlocos] = useState([]);
-  const handleBlocos = (e) => {
-    setBlocos(e.target.values);
-  };
-
-  // dados dos blocos de input
   const handleInputChange = (index, campo, valor) => {
     const novoBlocos = [...blocos];
     novoBlocos[index][campo] = valor;
     setBlocos(novoBlocos);
   };
-  console.log(blocos);
-  const Mostar = (valor) => {
-    const valores = [...blocos];
-    valores[campo] = valor;
-  };
 
-  //botao que add os blocos de acordo com a qnt de colunas
+  // Botão que adiciona os blocos de acordo com a quantidade de colunas
   const handleSubmit = (evento) => {
     evento.preventDefault();
     const novoBlocos = Array.from({ length: colunas }, (_, index) => ({
@@ -55,17 +42,20 @@ export function CriarTemplate() {
     setBlocos(novoBlocos);
   };
 
-  const handleNumeroColunas = (evento) => {
-    evento.preventDefault();
-    const blocoArray = [];
-    let qtdColunas = colunas;
-    while (qtdColunas) {
-      blocoArray.push({ input: "", select: "Opção 1" });
-      qtdColunas--;
-    }
-    setBlocos(blocoArray);
-  };
+  const [formData, setFormData] = useState({
+    extensao: "",
+  });
 
+  // Botão para salvar os dados
+  const handleSave = () => {
+    const dado = {
+      name: name,
+      colunas: blocos,
+      extensao: formData.extensao,
+    };
+    console.log(dado);
+    // Você também pode atualizar o estado ou realizar outras ações aqui
+  };
   return (
     <div className="testandooo">
       <div>
@@ -86,7 +76,13 @@ export function CriarTemplate() {
         </div>
         <div>
           <label htmlFor="extensao">Escolha a Extensão:</label>
-          <select className="extensao">
+          <select
+            className="extensao"
+            value={formData.extensao}
+            onChange={(e) =>
+              setFormData({ ...formData, extensao: e.target.value })
+            }
+          >
             <option value="CSV">CSV</option>
             <option value="XLS">XLS</option>
             <option value="XLSX">XLSX</option>
@@ -136,6 +132,7 @@ export function CriarTemplate() {
           </div>
         ))}
       </div>
+      <button onClick={handleSave}>salvar</button>
     </div>
   );
 }

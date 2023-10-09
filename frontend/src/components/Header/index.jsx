@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
 import {
@@ -15,7 +15,13 @@ import { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
 
 export function Header() {
-  const { login } = useContext(LoginContext);
+  const navigate = useNavigate();
+  const { login, handleLogin } = useContext(LoginContext);
+
+  function handleSignOut() {
+    handleLogin({});
+    navigate("/login");
+  }
 
   return (
     <header>
@@ -53,11 +59,12 @@ export function Header() {
 
       <div className="header-user-info">
         <div className="head">
-          <p className="user">Usuario:</p>
-          <p className="idUsuario">nome do usuario</p>
+          <p className="user">
+            Usuario: <strong> {login.nome}</strong>
+          </p>
         </div>
 
-        <button className="sair">
+        <button className="sair" onClick={handleSignOut}>
           <SignOut size={32} /> Sair
         </button>
       </div>

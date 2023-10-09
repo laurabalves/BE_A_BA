@@ -77,3 +77,7 @@ div.login h1 {
 .emptyText {
   color: brown;
 }
+
+.error-message {
+  background-color: rgb(253, 253, 253);
+}

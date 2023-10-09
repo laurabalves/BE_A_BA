@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 
-//vou conseguir pegar/compartilhar esse contexto em algum lugar
 export const LoginContext = createContext({});
 
 //armazenar informações do login, email e senha

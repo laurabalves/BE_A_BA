@@ -7,9 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Default layout
 import { DefaultLayout } from "./layouts/DefaultLayout";
 
-// Login layout
-import { LoginLayout } from "./layouts/LoginLayout";
-
 import { DashBoard } from "./components/DashBoard";
 import { Login } from "./components/Login";
 

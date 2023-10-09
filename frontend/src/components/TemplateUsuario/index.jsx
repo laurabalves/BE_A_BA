@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Table from "react-bootstrap/Table";
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./style.css";
+import { LoginContext } from "../../context/LoginContext";
+import axios from "axios";
 
 const mockDados = [
   {
@@ -35,6 +37,27 @@ const iserir = [
 ];
 
 export const TemplateUsuario = () => {
+  const { login } = useContext(LoginContext);
+  // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
+  const [templatesPorUsuario, setTemplatesPorUsuario] = useState([]);
+
+  async function getTemplatesPorUsuario() {
+    try {
+      const { idusuario } = login;
+
+      const { data: templates } = await axios.get(
+        `http://localhost:4000/api/templates/usuario/${idusuario}`
+      );
+
+      setTemplatesPorUsuario(templates);
+    } catch (error) {
+      console.error("Erro carregando todos os templates no dashboard", error);
+    }
+  }
+
+  useEffect(() => {
+    getTemplatesPorUsuario();
+  }, []);
   return (
     <div>
       <div className="cabeca">
@@ -56,13 +79,13 @@ export const TemplateUsuario = () => {
                 </tr>
               </thead>
               <tbody>
-                {mockDados.map((infos) => {
+                {templatesPorUsuario.map((template) => {
                   return (
-                    <tr>
-                      <td>{infos.nomeTemplate}</td>
-                      <td>{infos.usuario}</td>
-                      <td>{infos.extensao}</td>
-                      <td>{infos.colunas}</td>
+                    <tr key={template.idtemplate}>
+                      <td>{template.nome_template}</td>
+                      <td>{template.usuario.nome}</td>
+                      <td>{template.extensao}</td>
+                      <td>{template.campo.length}</td>
 
                       <td>
                         <a className="download" href="">

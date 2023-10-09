@@ -30,7 +30,15 @@ templatesRoutes.get("/usuario/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const templates = await prisma.template.findMany();
+    const templates = await prisma.template.findMany({
+      where: {
+        idusuario: Number(id),
+      },
+      include: {
+        campo: true,
+        usuario: true,
+      },
+    });
 
     res.json(templates);
   } catch (erro) {
@@ -42,8 +50,12 @@ templatesRoutes.get("/usuario/:id", async (req, res) => {
 //rota para mostrar todos os templates existentes
 templatesRoutes.get("/alltemplates", async (req, res) => {
   try {
-    const usuarios = await prisma.template.findMany();
-    res.json(usuarios);
+    const alltemaplates = await prisma.template.findMany({
+      include: {
+        usuario: true,
+      },
+    });
+    res.json(alltemaplates);
   } catch (error) {
     console.error("Erro ao acessar todos os templates cadastrados:", error);
     res.status(500).send("Erro ao acessar todos os templates cadastrados");

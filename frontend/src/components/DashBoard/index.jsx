@@ -2,7 +2,9 @@ import "./styles.css";
 import Table from "react-bootstrap/Table";
 import { DownloadSimple } from "phosphor-react";
 import { LoginContext } from "../../context/LoginContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { format } from "date-fns";
+import axios from "axios";
 
 const mockDados = [
   {
@@ -65,7 +67,23 @@ const mockDados = [
 
 export function DashBoard() {
   // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
-  const { login } = useContext(LoginContext);
+  const [templates, setTemplates] = useState([]);
+
+  async function getAllTemplates() {
+    try {
+      const { data: allTemplates } = await axios.get(
+        "http://localhost:4000/api/templates/alltemplates"
+      );
+
+      setTemplates(allTemplates);
+    } catch (error) {
+      console.error("Erro carregando todos os templates no dashboard", error);
+    }
+  }
+
+  useEffect(() => {
+    getAllTemplates();
+  }, []);
 
   return (
     <div className="in">
@@ -81,21 +99,21 @@ export function DashBoard() {
               <th className="p-3 bg-success ">Nome do arquivo</th>
               <th className="p-3 bg-success ">Quem criou</th>
               <th className="p-3 bg-success ">Data</th>
-              <th className="p-3 bg-success ">Qtn Campo</th>
               <th className="p-3 bg-success ">Download</th>
             </tr>
           </thead>
           <tbody>
-            {mockDados.map((dado) => {
+            {templates.map((template) => {
               return (
-                <tr key={dado.id}>
-                  <td>{dado.nomeArquivo}</td>
-                  <td>{dado.nomeAutor}</td>
-                  <td>{dado.dataCriacao}</td>
-                  <td>{dado.qtnCampos}</td>
+                <tr key={template.idtemplate}>
+                  <td>{template.nome_template}</td>
+                  <td>{template.usuario.nome}</td>
+                  <td>
+                    {format(new Date(template.data_criacao), "dd/MM/yyyy")}
+                  </td>
                   <td>
                     <a className="download" href="">
-                      <DownloadSimple size={32} />{" "}
+                      <DownloadSimple size={32} />
                     </a>
                   </td>
                 </tr>
@@ -106,7 +124,7 @@ export function DashBoard() {
       </div>
 
       <div className="box">
-        <div className="qtnArq">{mockDados.length} arquivos</div>
+        <div className="qtnArq">{templates.length} arquivos</div>
       </div>
     </div>
   );

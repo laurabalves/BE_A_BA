@@ -1,27 +1,33 @@
 import "./styles.css";
 import Logo from "../../assets/logo.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { MaterialSnackbar } from "../SnackBar";
 
 export function Login() {
   const navigate = useNavigate();
   const { handleLogin } = useContext(LoginContext);
   const { register, handleSubmit } = useForm();
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   async function handleLoginSubmit(dadosLogin) {
     try {
-      const { data } = await axios.post("http://localhost:3333/login", {
+      const { data } = await axios.post("http://localhost:4000/api/login", {
         email: dadosLogin.email,
         senha: dadosLogin.senha,
       });
 
       handleLogin(data);
-      navigate("/dashboard");
+      console.log(data);
+      data.isadm === true
+        ? navigate("/dashboard")
+        : navigate("/template-usuario");
     } catch (error) {
-      console.error(error);
+      setSnackbarOpen(true);
     }
   }
 
@@ -60,6 +66,12 @@ export function Login() {
           <button type="submit">Acessar</button>
         </div>
       </form>
+      <MaterialSnackbar
+        open={snackbarOpen}
+        message="Credenciais inválidas"
+        onClose={() => setSnackbarOpen(false)}
+        severity={"error"}
+      />
     </div>
   );
 }

@@ -1,34 +1,30 @@
+import { useContext, useEffect, useState } from "react";
 import "./styles.css";
-
-const mockUsuarios = [
-  {
-    id: 1,
-    nome: "Laura",
-    isAdm: false,
-  },
-  {
-    id: 2,
-    nome: "Matheus",
-    isAdm: true,
-  },
-  {
-    id: 3,
-    nome: "Eliete",
-    isAdm: false,
-  },
-  {
-    id: 4,
-    nome: "Mayara",
-    isAdm: false,
-  },
-  {
-    id: 5,
-    nome: "Zé",
-    isAdm: false,
-  },
-];
+import { LoginContext } from "../../context/LoginContext";
+import axios from "axios";
 
 export function ListaUsuarios() {
+  const { login } = useContext(LoginContext);
+
+  const [usuarios, setUsuarios] = useState([]);
+
+  async function getUsuarios() {
+    try {
+      const { data: dataUsuarios } = await axios.get(
+        "http://localhost:4000/api/usuarios"
+      );
+
+      console.log("dataUsuarios => ", dataUsuarios);
+      setUsuarios(dataUsuarios);
+    } catch (error) {
+      console.error("Erro ao carregar usuarios: ", error);
+    }
+  }
+
+  useEffect(() => {
+    getUsuarios();
+  }, []);
+
   function handleChange(e) {
     console.log(e.target.value);
     const index = e.target.selectedIndex;
@@ -42,23 +38,24 @@ export function ListaUsuarios() {
       <div className="usuarios">
         <h1>Permissões de usuários</h1>
 
-        {mockUsuarios.map((dado) => {
-          console.log(dado);
+        {usuarios.map((dado) => {
           return (
-            <div key={dado.nome}>
-              {" "}
-              <br />
+            <div key={dado.idusuario}>
               <p className="nomes">{dado.nome}</p>
               <select onChange={handleChange}>
                 <option
                   className="option"
-                  id={dado.id}
+                  id={dado.idusuario}
                   value="adm"
-                  selected={dado.isAdm}
+                  selected={dado.isadm}
                 >
                   Administrador
                 </option>
-                <option id={dado.id} value="usuario" selected={!dado.isAdm}>
+                <option
+                  id={dado.idusuario}
+                  value="usuario"
+                  selected={!dado.isadm}
+                >
                   Padrao
                 </option>
               </select>
