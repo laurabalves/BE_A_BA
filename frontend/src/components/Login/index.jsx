@@ -63,14 +63,16 @@ export function Login() {
             {...register("senha")}
           />
 
-          <button type="submit">Acessar</button>
+          <button className="demo-btn" type="submit">
+            Acessar
+          </button>
         </div>
       </form>
       <MaterialSnackbar
         open={snackbarOpen}
-        message="Credenciais inválidas"
+        children="Credenciais inválidas"
         onClose={() => setSnackbarOpen(false)}
-        severity={"error"}
+        type={"error"}
       />
     </div>
   );
