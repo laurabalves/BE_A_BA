@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { prisma } from "../server.js";
 
+//rota para login
 export const loginRoutes = Router();
 
 loginRoutes.post("/", async (req, res) => {
   const { email, senha } = req.body;
 
   try {
-    // Use o Prisma para consultar o banco de dados e encontrar o usuário pelo email e senha
+    // usar o Prisma para consultar o banco de dados e encontrar o usuário pelo email e senha
     const usuario = await prisma.usuario.findFirst({
       where: {
         email: email,
