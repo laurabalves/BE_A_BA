@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
