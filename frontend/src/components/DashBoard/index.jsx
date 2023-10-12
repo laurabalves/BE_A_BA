@@ -1,74 +1,17 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
-import { DownloadSimple } from "phosphor-react";
+import { DownloadSimple, MagnifyingGlass } from "phosphor-react";
 import { LoginContext } from "../../context/LoginContext";
 import { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 import axios from "axios";
-
-const mockDados = [
-  {
-    id: 1,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Laura",
-    dataCriacao: "16-07-2022",
-    qtnCampos: 5,
-    extensao: "csv",
-  },
-  {
-    id: 2,
-    nomeArquivo: "arquivos_casas_vendidas.xlsx",
-    nomeAutor: "Mayara",
-    dataCriacao: "12-08-2000",
-    qtnCampos: 3,
-    extensao: "csv",
-  },
-  {
-    id: 3,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Eliete",
-    dataCriacao: "10-07-2003",
-    qtnCampos: 10,
-    extensao: "csv",
-  },
-  {
-    id: 4,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Eliete",
-    dataCriacao: "10-07-2003",
-    qtnCampos: 10,
-    extensao: "csv",
-  },
-  {
-    id: 5,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Eliete",
-    dataCriacao: "10-07-2003",
-    qtnCampos: 10,
-    extensao: "csv",
-  },
-  {
-    id: 6,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Alan",
-    dataCriacao: "10-07-2003",
-    qtnCampos: 4,
-    extensao: "XLS",
-  },
-  {
-    id: 7,
-    nomeArquivo: "arquivo_casas_alugadas.xlsx",
-    nomeAutor: "Eliete",
-    dataCriacao: "10-07-2003",
-    qtnCampos: 10,
-    extensao: "csv",
-  },
-];
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export function DashBoard() {
   // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
   const [templates, setTemplates] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -84,12 +27,23 @@ export function DashBoard() {
   useEffect(() => {
     getAllTemplates();
   }, []);
-
+  const filteredTemplates = templates.filter((template) =>
+    template.nome_template.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="in">
       <h1>Dashboard</h1>
       <div className="div-pesquisar">
-        <input className="pesquisar" type="text" placeholder="Pesquisar" />
+        <div className="input-container">
+          <input
+            className="pesquisar"
+            type="text"
+            placeholder="Pesquisar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+        </div>
       </div>
 
       <div className="tabela-header">
@@ -103,7 +57,7 @@ export function DashBoard() {
             </tr>
           </thead>
           <tbody>
-            {templates.map((template) => {
+            {filteredTemplates.map((template) => {
               return (
                 <tr key={template.idtemplate}>
                   <td>{template.nome_template}</td>
@@ -124,7 +78,7 @@ export function DashBoard() {
       </div>
 
       <div className="box">
-        <div className="qtnArq">{templates.length} arquivos</div>
+        <div className="qtnArq">{filteredTemplates.length} arquivos</div>
       </div>
     </div>
   );
