@@ -69,7 +69,7 @@ export const TemplateUsuario = () => {
             <Table striped hover>
               <thead>
                 <tr>
-                  <th className="p-3 bg-success  ">Nome Template</th>
+                  <th className="p-3 custom-bg-color ">Nome Template</th>
                   <th className="p-3 bg-success ">Usuario</th>
                   <th className="p-3 bg-success ">Formato</th>
                   <th className="p-3 bg-success ">Colunas</th>

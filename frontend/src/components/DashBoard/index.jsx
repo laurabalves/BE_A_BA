@@ -50,10 +50,42 @@ export function DashBoard() {
         <Table striped hover>
           <thead>
             <tr>
-              <th className="p-3 bg-success ">Nome do arquivo</th>
-              <th className="p-3 bg-success ">Quem criou</th>
-              <th className="p-3 bg-success ">Data</th>
-              <th className="p-3 bg-success ">Download</th>
+              <th
+                style={{
+                  backgroundColor: "rgb(27, 163, 84)",
+                  color: "white",
+                  padding: "20px",
+                }}
+              >
+                Nome do arquivo
+              </th>
+              <th
+                style={{
+                  backgroundColor: "rgb(27, 163, 84)",
+                  color: "white",
+                  padding: "20px",
+                }}
+              >
+                Quem criou
+              </th>
+              <th
+                style={{
+                  backgroundColor: "rgb(27, 163, 84)",
+                  color: "white",
+                  padding: "20px",
+                }}
+              >
+                Data
+              </th>
+              <th
+                style={{
+                  backgroundColor: "rgb(27, 163, 84)",
+                  color: "white",
+                  padding: "20px",
+                }}
+              >
+                Download
+              </th>
             </tr>
           </thead>
           <tbody>
