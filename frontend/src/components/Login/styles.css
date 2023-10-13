@@ -1,77 +1,73 @@
 div.login {
-  height: 100%;
-  width: 100%;
-  background-color: rgb(27, 163, 84);
-  position: absolute;
-}
-
-div.login h2 {
-  color: rgb(188, 255, 2);
-  font-size: 32px;
-}
-
-div.login div.login-info {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 50px;
-  flex-direction: column;
-  text-align: justify;
+  height: 100vh;
+  background: rgb(27, 163, 84);
+  color: #fff;
+  text-align: center;
 }
 
-div.login form {
-  min-width: 57rem;
-  border-radius: 2px;
-  padding: 1.5rem 3rem;
-  outline: unset;
-  padding: 30px;
-  gap: 10px;
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-div.login form div {
+.login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  width: 80%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
 }
 
-div.login input.login-input {
-  margin-bottom: 27px;
-  padding: 14px;
+.centered-text {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #19743f;
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  color: #f9fcf9;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.login-input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f1f4f7;
+  color: #333;
+  font-size: 16px;
+
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.login-input:focus {
+  border-color: #258558;
+  box-shadow: 0 0 5px rgba(28, 134, 76, 0.3);
+}
+.label {
   text-align: center;
-  outline: unset;
-  border-radius: 11px;
-  background-color: rgb(241, 244, 247);
+  font-weight: bold;
+  color: #555;
 }
-
-button[type="submit"] {
+.login-button {
   padding: 12px 40px;
   letter-spacing: 1px;
   border: none;
-  border-radius: 7px;
-  background-color: rgb(188, 255, 2);
-  font-size: 17px;
-  cursor: pointer;
-}
-
-div.login div {
-  align-items: center;
-  justify-content: left;
-  margin-bottom: 20px;
-}
-
-div.login h1 {
-  color: azure;
-  margin: 0;
-  font-size: 32px;
-  left: 90px;
-  align-items: center;
-  text-align: justify;
+  border-radius: 10px;
+  background: rgb(27, 163, 84);
+  margin-top: 24px;
 }
 
 .emptyText {
@@ -79,5 +75,9 @@ div.login h1 {
 }
 
 .error-message {
-  background-color: rgb(253, 253, 253);
+  background-color: #fdd;
+  color: #d00;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
 }

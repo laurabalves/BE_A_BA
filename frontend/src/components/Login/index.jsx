@@ -14,6 +14,7 @@ export function Login() {
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  //jlgl
   async function handleLoginSubmit(dadosLogin) {
     try {
       const { data } = await axios.post("http://localhost:4000/api/login", {
@@ -36,34 +37,31 @@ export function Login() {
       <header>
         <img className="Logo" src={Logo} alt="" />
       </header>
-
-      <form onSubmit={handleSubmit(handleLoginSubmit)}>
-        <div className="login-info">
-          <h1>Sistema de gerenciamento eletrônico de templates</h1>
-          <h2>Login</h2>
-        </div>
-        <div className="login-inputs">
-          <label>Email</label>
+      <h2>Sistema de Gerenciamento Eletrônico de Templates</h2>
+      <form onSubmit={handleSubmit(handleLoginSubmit)} className="login-form">
+        <h1 className="centered-text">Login</h1>
+        <div className="input-group">
+          <label className="label">Email</label>
           <input
             name="email"
             className="login-input"
             type="text"
-            placeholder="Matricula"
+            placeholder="Email"
             {...register("email")}
             required
           />
 
-          <label>Senha</label>
+          <label className="label">Senha</label>
           <input
             required
             name="senha"
             className="login-input"
-            type="text"
-            placeholder="senha"
+            type="password"
+            placeholder="Senha"
             {...register("senha")}
           />
 
-          <button className="demo-btn" type="submit">
+          <button className="login-button" type="submit">
             Acessar
           </button>
         </div>
@@ -72,7 +70,7 @@ export function Login() {
         open={snackbarOpen}
         children="Credenciais inválidas"
         onClose={() => setSnackbarOpen(false)}
-        type={"error"}
+        type="error"
       />
     </div>
   );
