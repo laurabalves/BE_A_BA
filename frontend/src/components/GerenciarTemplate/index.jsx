@@ -2,8 +2,10 @@ import "./styles.css";
 import Table from "react-bootstrap/Table";
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const mockDados = [
+/*const mockDados = [
   { nomeArquivo: "Produção", ususario: "Laura", formato: "XXLS", colunas: 6 },
 
   { nomeArquivo: "Vendas", ususario: "Matheus", formato: "CSV", colunas: 7 },
@@ -11,9 +13,26 @@ const mockDados = [
   { nomeArquivo: "Estoque", ususario: "Eliete", formato: "XLS", colunas: 4 },
 
   { nomeArquivo: "Liquidação", ususario: "Mayara", formato: "CSV", colunas: 8 },
-];
+];*/
 
 export function GerenciarTemplate() {
+  const [templates, setTemplates] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  async function getAllTemplates() {
+    try {
+      const { data: allTemplates } = await axios.get(
+        "http://localhost:4000/api/templates/alltemplates"
+      );
+
+      setTemplates(allTemplates);
+    } catch (error) {
+      console.error("Erro carregando todos os templates no dashboard", error);
+    }
+  }
+
+  useEffect(() => {
+    getAllTemplates();
+  }, []);
   return (
     <div className="cabeca">
       <h1>Gerenciamento de Template</h1> <br />
@@ -32,16 +51,18 @@ export function GerenciarTemplate() {
               </tr>
             </thead>
             <tbody>
-              {mockDados.map((dado) => {
+              {templates.map((template) => {
                 return (
                   <tr>
-                    <td>{dado.nomeArquivo}</td>
-                    <td>{dado.ususario}</td>
-                    <td>{dado.formato}</td>
-                    <td>{dado.colunas}</td>
+                    <td>{template.nome_template}</td>
+                    <td>{template.usuario.nome}</td>
+                    <td>{template.extensao}</td>
+                    <td>{template.extensao}</td>
                     <td>
-                      <button className="botao-ativar">ativar</button>{" "}
-                      <button className="botao-desativar">desativar</button>
+                      <select name="" id="">
+                        <option value="">Ativar template</option>
+                        <option value="">Desativar template</option>
+                      </select>
                     </td>
                     <td>
                       <a className="download" href="">

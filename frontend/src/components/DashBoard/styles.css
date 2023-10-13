@@ -9,6 +9,10 @@ div.in h1 {
   color: rgb(73, 50, 19);
   text-align: center;
 }
+.custom-bg-color {
+  background-color: rgb(27, 163, 84); /* Cor personalizada */
+  color: white; /* Cor do texto, se necessário */
+}
 
 div.dash {
   background-color: rgb(54, 54, 107);
@@ -30,31 +34,31 @@ div.box {
 }
 
 .pesquisar {
-  padding-right: 30px; /* Deixe espaço para o ícone à direita */
+  padding-right: 30px;
 
-  width: 250px; /* Define a largura do campo de pesquisa */
-  height: 40px; /* Define a altura do campo de pesquisa */
-  border: 1px solid #ccc; /* Adiciona uma borda */
-  border-radius: 5px; /* Arredonda as bordas */
-  padding: 10px; /* Adiciona espaço interno */
-  font-size: 16px; /* Define o tamanho da fonte */
-  outline: none; /* Remove o contorno ao focar */
-  transition: border-color 0.3s ease; /* Adiciona uma transição suave na borda */
+  width: 250px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
 .pesquisar::placeholder {
-  color: #615c5c; /* Define a cor do texto de espaço reservado */
+  color: #615c5c;
 }
 
 .pesquisar:focus {
-  border-color: #109c46; /* Altera a cor da borda ao focar */
-  box-shadow: 0 0 5px rgba(12, 117, 52, 0.3); /* Adiciona uma sombra ao focar */
+  border-color: #109c46;
+  box-shadow: 0 0 5px rgba(12, 117, 52, 0.3);
 }
 
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 10px; /* Ajuste a posição conforme necessário */
+  right: 10px;
   transform: translateY(-50%);
 }
 div.qtnArq {
