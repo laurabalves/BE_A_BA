@@ -1,33 +1,40 @@
-div.tudo {
-  padding: 60px;
-}
-h1 {
-  margin: 0;
+h1.permissao {
+  font-size: 36px;
+  color: #333;
+  padding: 20px 0;
 }
 
 div.usuarios {
-  height: 100%;
-  padding: 0px;
-
+  padding: 9px;
   text-align: center;
   font-size: 18px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-select {
+/* Estilos para o seletor de opções */
+select.usuarioss {
   width: 220px;
-  margin-left: 16px;
-  background-color: #f2f2f2;
-  height: 38px;
-  font-family: "Trebuchet MS", Helvetica, sans-serif !important;
-  color: rgb(53, 43, 43);
+  color: #333;
   font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 10px;
+  padding: 8px;
+  background-color: #f8f8f8;
+  cursor: pointer;
 }
 
 .nomes {
-  height: 20px;
+  font-weight: bold;
 }
 
-.option {
-  background-color: rgb(231, 202, 202);
+select.usuarioss option.usuario {
+  background-color: rgb(240, 231, 231);
+  color: #333;
+}
+
+select.usuarioss option.adm {
+  background-color: rgb(233, 226, 226);
+  color: #333;
 }

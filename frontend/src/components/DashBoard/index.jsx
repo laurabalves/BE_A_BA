@@ -2,7 +2,7 @@ import "./styles.css";
 import Table from "react-bootstrap/Table";
 import { DownloadSimple, MagnifyingGlass } from "phosphor-react";
 import { LoginContext } from "../../context/LoginContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { format } from "date-fns";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

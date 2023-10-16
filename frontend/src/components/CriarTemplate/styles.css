@@ -1,4 +1,3 @@
-/* div toda*/
 .testandooo {
   background-color: rgb(229, 255, 216);
   padding: 25px;
@@ -6,10 +5,9 @@
   height: auto;
 }
 
-/*alinhando os blocos de input e select*/
 div.key {
-  display: flex; /* Torna os elementos filhos flexíveis */
-  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+  display: flex;
+  justify-content: space-between;
   align-items: center; /* Alinha verticalmente os elementos ao centro (opcional) */
   gap: 50px;
 }
@@ -57,7 +55,7 @@ div select.extensao {
   display: block;
   margin-left: 0px;
   border-radius: 10px;
-  color: rgb(53, 43, 43);
+  color: rgb(224, 168, 168);
 }
 
 input[type="number"][name="qntColuna"] {

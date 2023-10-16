@@ -9,9 +9,7 @@ div.cabe {
 }
 
 .bg-green-600 {
-  background-color: #00cc66; /* Substitua esta cor pelo valor desejado */
-  /* Outros estilos personalizados, se necessário */
-}
+  background-color: #00cc66; /}
 
 .botao-ativar {
   background-color: #b5b5b5;
@@ -67,4 +65,35 @@ div.cabe {
 .botao-desativar:active {
   position: relative;
   top: 1px;
+}
+
+.upload {
+  text-decoration: none;
+  color: #1f8b50; 
+  display: inline-block; 
+  margin: 10px; 
+  font-size: 16px; 
+  padding: 5px 10px;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+.upload:hover {
+  background-color: #1e8a57; 
+  color: #fff; 
+}
+
+.download {
+  text-decoration: none; 
+  color: #1f8b50; 
+  display: inline-block; 
+  margin: 10px; 
+  font-size: 16px; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+}
+
+.download:hover {
+  background-color: #1e8a57;
+  color: #fff; 
 }
