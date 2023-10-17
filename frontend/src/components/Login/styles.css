@@ -63,9 +63,8 @@ h2 {
 }
 .login-button {
   padding: 12px 40px;
-  letter-spacing: 1px;
+
   border: none;
-  border-radius: 10px;
   background: rgb(27, 163, 84);
   margin-top: 24px;
 }

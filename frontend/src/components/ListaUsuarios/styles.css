@@ -1,3 +1,6 @@
+div.tudo {
+  padding: 20px;
+}
 h1.permissao {
   font-size: 36px;
   color: #333;
@@ -8,9 +11,6 @@ div.usuarios {
   padding: 9px;
   text-align: center;
   font-size: 18px;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para o seletor de opções */
@@ -25,15 +25,18 @@ select.usuarioss {
   cursor: pointer;
 }
 
+/* Estilos para elementos com a classe "nomes" */
 .nomes {
   font-weight: bold;
 }
 
+/* Estilos para as opções do seletor "usuario" */
 select.usuarioss option.usuario {
   background-color: rgb(240, 231, 231);
   color: #333;
 }
 
+/* Estilos para as opções do seletor "adm" */
 select.usuarioss option.adm {
   background-color: rgb(233, 226, 226);
   color: #333;

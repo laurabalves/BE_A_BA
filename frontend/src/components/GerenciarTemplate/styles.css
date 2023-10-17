@@ -8,92 +8,43 @@ div.cabe {
   background-color: #0a0a0a;
 }
 
-.bg-green-600 {
-  background-color: #00cc66; /}
-
-.botao-ativar {
-  background-color: #b5b5b5;
-  border-radius: 5px;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Trebuchet MS;
-  font-size: 10px;
-  padding: 7px 10px;
-  text-decoration: none;
-  text-shadow: 0px 0px 0px #38c2af;
-}
-
-.botao-ativar {
-  background-color: #a7bead;
-  border-radius: 28px;
-  border: transparent;
-  display: inline-block;
-  cursor: pointer;
-  color: #0a0a0a;
-  font-family: Arial;
-  font-size: 14px;
-
-  padding: 8px 15px;
-
-  text-shadow: 0px 1px 0px #2f6627;
-}
-.botao-ativar:hover {
-  background-color: #577747;
-}
-.botao-ativar:active {
-  position: relative;
-  top: 1px;
-}
-
-.botao-desativar {
-  background-color: #a7bead;
-  border-radius: 28px;
-  border: transparent;
-  display: inline-block;
-  cursor: pointer;
-  color: #131111;
-  font-family: Arial;
-  font-size: 14px;
-  padding: 8px 15px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #2f6627;
-}
-.botao-desativar:hover {
-  background-color: #577747;
-}
-.botao-desativar:active {
-  position: relative;
-  top: 1px;
-}
-
 .upload {
   text-decoration: none;
-  color: #1f8b50; 
-  display: inline-block; 
-  margin: 10px; 
-  font-size: 16px; 
+  color: #1f8b50;
+  display: inline-block;
+  margin: 10px;
+  font-size: 16px;
   padding: 5px 10px;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .upload:hover {
-  background-color: #1e8a57; 
-  color: #fff; 
+  background-color: #1e8a57;
+  color: #fff;
 }
 
 .download {
-  text-decoration: none; 
-  color: #1f8b50; 
-  display: inline-block; 
-  margin: 10px; 
-  font-size: 16px; 
-  padding: 5px 10px; 
-  border-radius: 5px; 
+  text-decoration: none;
+  color: #0b288a;
+  display: inline-block;
+  margin: 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .download:hover {
   background-color: #1e8a57;
-  color: #fff; 
+  color: #fff;
+}
+.status {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  width: 200px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
 }

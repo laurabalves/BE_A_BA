@@ -1,8 +1,8 @@
 div.in {
   position: center;
 
-  height: 500px;
-  padding: 50px;
+  height: 700px;
+  padding: 30px;
 }
 
 div.in h1 {
@@ -76,7 +76,7 @@ a.download {
   background: transparent;
   cursor: pointer;
 
-  color: rgb(17, 14, 14);
+  color: rgb(28, 138, 77);
 
   flex-direction: column;
   align-items: center;

@@ -2,10 +2,18 @@ import "./styles.css";
 import { useState } from "react";
 
 export function CriarTemplate() {
-  // Gerenciamento de dados
+  //colunas
+  const [colunas, setqntColunas] = useState(0);
+  //nome
+  const [name, setName] = useState("");
+  //bloco de input
+  const [blocos, setBlocos] = useState([]);
 
-  // Colunas
-  const [colunas, setqntColunas] = useState(0); // Defina um valor padrão para colunas
+  const [namePreview, setNamePreview] = useState("");
+  const [colunasPreview, setColunasPreview] = useState([]);
+  const [formData, setFormData] = useState({
+    extensao: "",
+  });
   const handleConlunas = (e) => {
     setqntColunas(e.target.value);
     const blocoArray = [];
@@ -18,35 +26,28 @@ export function CriarTemplate() {
     setBlocos(blocoArray);
   };
 
-  // Nome do template
-  const [name, setName] = useState("");
-  const handleName = (e) => {
-    setName(e.target.value);
+  const handleNameChange = (e) => {
+    const newName = e.target.value;
+    setName(newName);
+    setNamePreview(newName);
   };
 
-  // Blocos de input
-  const [blocos, setBlocos] = useState([]);
-  const handleInputChange = (index, campo, valor) => {
-    const novoBlocos = [...blocos];
-    novoBlocos[index][campo] = valor;
-    setBlocos(novoBlocos);
+  const handleColunasChange = (e, index) => {
+    const newColunas = [...blocos];
+    newColunas[index].input = e.target.value;
+    setBlocos(newColunas);
+
+    const newColunasPreview = newColunas.map((bloco, i) => {
+      if (i === index) {
+        return e.target.value;
+      } else {
+        return bloco.input;
+      }
+    });
+    setColunasPreview(newColunasPreview);
   };
-
-  // Botão que adiciona os blocos de acordo com a quantidade de colunas
-  const handleSubmit = (evento) => {
-    evento.preventDefault();
-    const novoBlocos = Array.from({ length: colunas }, (_, index) => ({
-      input: "",
-      select: "Opção 1",
-    }));
-    setBlocos(novoBlocos);
-  };
-
-  const [formData, setFormData] = useState({
-    extensao: "",
-  });
-
   // Botão para salvar os dados
+
   const handleSave = () => {
     const dado = {
       name: name,
@@ -54,16 +55,16 @@ export function CriarTemplate() {
       extensao: formData.extensao,
     };
     console.log(dado);
-    // Você também pode atualizar o estado ou realizar outras ações aqui
   };
+
   return (
     <div className="testandooo">
       <div>
-        <h2> Criar template</h2>
+        <h2 className="criar"> Criar template</h2>
         <p>Insira as informações abaixo:</p>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSave}>
         <div>
           <label htmlFor="nomeTemplate">Nome do template:</label>
           <input
@@ -71,7 +72,8 @@ export function CriarTemplate() {
             type="text"
             name="nomeTemplate"
             placeholder="Insira o nome do template"
-            onChange={handleName}
+            value={name}
+            onChange={handleNameChange}
           />
         </div>
         <div>
@@ -94,20 +96,17 @@ export function CriarTemplate() {
           name="qntColuna"
           placeholder="n° de coluna(s)"
           onChange={handleConlunas}
-        />{" "}
+        />
         <br />
       </form>
       <div className="blocos-container">
         {blocos.map((bloco, index) => (
           <div key={index} className="key">
-            {/* Input */}
             <select
               className="select-bloco"
               value={bloco.select}
               required
-              onChange={(e) =>
-                handleInputChange(index, "select", e.target.value)
-              }
+              onChange={(e) => handleInputChange(e, "select", e.target.value)}
             >
               <option required value="Opção 1">
                 Numero
@@ -125,14 +124,31 @@ export function CriarTemplate() {
               placeholder="Nome da coluna"
               value={bloco.input}
               required
-              onChange={(e) =>
-                handleInputChange(index, "input", e.target.value)
-              }
+              onChange={(e) => handleColunasChange(e, index)}
             />
           </div>
         ))}
       </div>
+
       <button onClick={handleSave}>salvar</button>
+      <div className="tabela-preview-container">
+        <table className="tabela-preview">
+          <tbody>
+            <tr>
+              <th>Nome</th>
+            </tr>
+            <tr>
+              <td>{namePreview}</td>
+            </tr>
+            <tr>
+              <th>Colunas</th>
+            </tr>
+            <tr>
+              <td>{colunasPreview.join(", ")}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

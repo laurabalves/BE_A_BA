@@ -1,3 +1,6 @@
+h2.criar {
+  color: rgb(68, 66, 66);
+}
 .testandooo {
   background-color: rgb(229, 255, 216);
   padding: 25px;
@@ -12,15 +15,6 @@ div.key {
   gap: 50px;
 }
 
-/*select dos blocos*/
-.select-bloco {
-  background-color: rgb(241, 253, 249);
-  color: rgb(104, 102, 102);
-  display: block;
-  margin-left: 0px;
-  border-radius: 10px;
-  color: rgb(53, 43, 43);
-}
 /*forumlario*/
 form {
   margin: 10px;
@@ -31,37 +25,44 @@ form {
 div.testandooo input {
   display: block;
   margin-top: 7px;
-  padding: 10px;
-  border: 1px solid #d3d3d3;
-  border-radius: 6px;
-  font-size: 16px;
-  width: 50%;
-  background-color: #f8f1f1;
-}
+  width: 215px;
 
-/*botao*/
-div.testandooo input.enviar {
-  border-radius: 4px;
-  font-size: 17px;
-  width: 20%;
-  background-color: rgb(209, 235, 206);
-  color: black;
-  font-weight: 500;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+
+  border-radius: 8px;
+  font-size: 15px;
+  color: #2e3130;
+  background-color: #fffdfd;
+  transition: border-color 0.3s, background-color 0.3s;
 }
 
 /*selec de extensao */
 div select.extensao {
   color: rgb(146, 146, 146);
   display: block;
-  margin-left: 0px;
+  width: 80px;
+  color: #333;
+  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  color: rgb(224, 168, 168);
+  padding: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
 }
 
 input[type="number"][name="qntColuna"] {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+
+  border-radius: 8px;
+  font-size: 15px;
   width: 30%;
+  color: #343635; /* Cor do texto alterada */
+  background-color: #fffdfd; /* Cor de fundo alterada para um cinza mais claro */
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+input[type="number"][name="qntColuna"]:focus {
+  border-color: #355742; /* Cor da borda alterada quando o input está em foco */
+  background-color: #fff; /* Cor de fundo alterada quando o input está em foco */
 }
