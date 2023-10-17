@@ -1,23 +1,15 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
+
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-/*const mockDados = [
-  { nomeArquivo: "Produção", ususario: "Laura", formato: "XXLS", colunas: 6 },
-
-  { nomeArquivo: "Vendas", ususario: "Matheus", formato: "CSV", colunas: 7 },
-
-  { nomeArquivo: "Estoque", ususario: "Eliete", formato: "XLS", colunas: 4 },
-
-  { nomeArquivo: "Liquidação", ususario: "Mayara", formato: "CSV", colunas: 8 },
-];*/
-
 export function GerenciarTemplate() {
   const [templates, setTemplates] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -33,6 +25,18 @@ export function GerenciarTemplate() {
   useEffect(() => {
     getAllTemplates();
   }, []);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Nome do arquivo: ", file.name);
+      console.log("Tipo de arquivo: ", file.type);
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUploadClick = () => {
+    document.getElementById("fileInput").click();
+  };
   return (
     <div className="cabeca">
       <h1>Gerenciamento de Template</h1> <br />
@@ -41,25 +45,81 @@ export function GerenciarTemplate() {
           <Table striped hover>
             <thead>
               <tr>
-                <th className="p-3 bg-success ">Nome Template</th>
-                <th className="p-3 bg-success ">Usuario</th>
-                <th className="p-3 bg-success ">Formato</th>
-                <th className="p-3 bg-success ">Colunas</th>
-                <th className="p-3 bg-success ">Operação</th>
-                <th className="p-3 bg-success ">Download</th>
-                <th className="p-3 bg-success ">Upload</th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Nome Template
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Usuario
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Formato
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Colunas
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Operação
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Download
+                </th>
+                <th
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
+                >
+                  Upload
+                </th>
               </tr>
             </thead>
             <tbody>
               {templates.map((template) => {
                 return (
-                  <tr>
+                  <tr key={template.idtemplate}>
                     <td>{template.nome_template}</td>
                     <td>{template.usuario.nome}</td>
                     <td>{template.extensao}</td>
-                    <td>{template.extensao}</td>
+                    <td>{template.campo.length}</td>
                     <td>
-                      <select name="" id="">
+                      <select className="status" name="" id="">
                         <option value="">Ativar template</option>
                         <option value="">Desativar template</option>
                       </select>
@@ -71,9 +131,15 @@ export function GerenciarTemplate() {
                     </td>
 
                     <td>
-                      <a className="upload" href="">
+                      <a className="upload" onClick={handleUploadClick}>
                         <CloudArrowUp size={32} />
                       </a>
+                      <input
+                        id="fileInput"
+                        type="file"
+                        style={{ display: "none" }}
+                        onChange={handleFileChange}
+                      />
                     </td>
                   </tr>
                 );

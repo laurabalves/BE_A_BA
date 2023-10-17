@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { CloudArrowDown } from "phosphor-react";
 
 export function DashBoard() {
   // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
@@ -46,7 +47,10 @@ export function DashBoard() {
         </div>
       </div>
 
-      <div className="tabela-header">
+      <div
+        className="tabela-header"
+        style={{ maxHeight: "400px", overflowY: "auto" }}
+      >
         <Table striped hover>
           <thead>
             <tr>
@@ -99,7 +103,7 @@ export function DashBoard() {
                   </td>
                   <td>
                     <a className="download" href="">
-                      <DownloadSimple size={32} />
+                      <CloudArrowDown size={32} />
                     </a>
                   </td>
                 </tr>
