@@ -8,27 +8,6 @@ import "./style.css";
 import { LoginContext } from "../../context/LoginContext";
 import axios from "axios";
 
-const mockDados = [
-  {
-    nomeTemplate: "contabilidade",
-    usuario: "Laura Beatriz",
-    extensao: "XLSX",
-    colunas: 7,
-  },
-  {
-    nomeTemplate: "advogacia",
-    usuario: "Patricia Rodrigues",
-    extensao: "CSV",
-    colunas: 4,
-  },
-  {
-    nomeTemplate: "publicidade",
-    usuario: "Jose Lopes",
-    extensao: "XLS",
-    colunas: 8,
-  },
-];
-
 const iserir = [
   {
     nomeArquivo: "Total_distribuidora",
@@ -69,13 +48,61 @@ export const TemplateUsuario = () => {
             <Table striped hover>
               <thead>
                 <tr>
-                  <th className="p-3 custom-bg-color ">Nome Template</th>
-                  <th className="p-3 bg-success ">Usuario</th>
-                  <th className="p-3 bg-success ">Formato</th>
-                  <th className="p-3 bg-success ">Colunas</th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Nome Template
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Usuario
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Formato
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Colunas
+                  </th>
 
-                  <th className="p-3 bg-success ">Download</th>
-                  <th className="p-3 bg-success ">Upload</th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Download
+                  </th>
+                  <th
+                    style={{
+                      backgroundColor: "rgb(27, 163, 84)",
+                      color: "white",
+                      padding: "20px",
+                    }}
+                  >
+                    Upload
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -110,18 +137,24 @@ export const TemplateUsuario = () => {
         </div>
 
         <div className="comec">
-          <Table striped shover>
+          <Table striped shover="true">
             <thead>
               <tr>
                 <th
-                  className="p-3 bg-success"
-                  style={{ width: "200px", borderRadius: "10px" }}
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
                 >
                   Nome Template
                 </th>
                 <th
-                  className="p-3 bg-success"
-                  style={{ width: "200px", borderRadius: "10px" }}
+                  style={{
+                    backgroundColor: "rgb(27, 163, 84)",
+                    color: "white",
+                    padding: "20px",
+                  }}
                 >
                   Colunas
                 </th>

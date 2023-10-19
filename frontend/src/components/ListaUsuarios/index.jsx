@@ -13,11 +13,9 @@ export function ListaUsuarios() {
       const { data: dataUsuarios } = await axios.get(
         "http://localhost:4000/api/usuarios"
       );
-
-      console.log("dataUsuarios => ", dataUsuarios);
       setUsuarios(dataUsuarios);
     } catch (error) {
-      console.error("Erro ao carregar usuarios: ", error);
+      console.error("Erro ao carregar usuários: ", error);
     }
   }
 
@@ -26,42 +24,46 @@ export function ListaUsuarios() {
   }, []);
 
   function handleChange(e) {
-    console.log(e.target.value);
-    const index = e.target.selectedIndex;
-    const el = e.target.childNodes[index];
-    const option = el.getAttribute("id");
-    console.log(option);
+    const idusuario = e.target.getAttribute("data-idusuario");
+    const role = e.target.value;
+
+    const isadm = role === "adm";
+
+    axios
+      .put(`http://localhost:4000/api/usuarios/${idusuario}`, { isadm })
+      .then((response) => {
+        console.log(
+          `Permissão do usuário ${idusuario} atualizada para ${role}`
+        );
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar a permissão do usuário: ", error);
+      });
   }
 
   return (
     <div className="tudo">
       <div className="usuarios">
-        <h1>Permissões de usuários</h1>
+        <h1 className="permissao">Permissões de usuários</h1>
 
-        {usuarios.map((dado) => {
-          return (
-            <div key={dado.idusuario}>
-              <p className="nomes">{dado.nome}</p>
-              <select onChange={handleChange}>
-                <option
-                  className="option"
-                  id={dado.idusuario}
-                  value="adm"
-                  selected={dado.isadm}
-                >
-                  Administrador
-                </option>
-                <option
-                  id={dado.idusuario}
-                  value="usuario"
-                  selected={!dado.isadm}
-                >
-                  Padrao
-                </option>
-              </select>
-            </div>
-          );
-        })}
+        {usuarios.map((dado) => (
+          <div key={dado.idusuario}>
+            <p className="nomes">{dado.nome}</p>
+            <select
+              className="usuarioss"
+              onChange={handleChange}
+              data-idusuario={dado.idusuario}
+              value={dado.isadm ? "adm" : "usuario"}
+            >
+              <option className="adm" value="adm">
+                Administrador
+              </option>
+              <option className="usuario" value="usuario">
+                Padrão
+              </option>
+            </select>
+          </div>
+        ))}
       </div>
     </div>
   );

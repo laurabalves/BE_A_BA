@@ -10,6 +10,8 @@ export function GerenciarTemplate() {
   const [templates, setTemplates] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [previousTemplates, setPreviousTemplates] = useState([]);
+
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -36,6 +38,23 @@ export function GerenciarTemplate() {
 
   const handleUploadClick = () => {
     document.getElementById("fileInput").click();
+  };
+  const updateTemplateStatus = async (templateId, isActive) => {
+    try {
+      await axios.put(`http://localhost:4000/api/templates/${templateId}`, {
+        isActive,
+      });
+      const updatedTemplates = [...templates];
+      const templateIndex = updatedTemplates.findIndex(
+        (template) => template.idtemplate === templateId
+      );
+      updatedTemplates[templateIndex].status = isActive;
+      // Atualize o estado do template localmente após a alteração no servidor.
+      setTemplates(updatedTemplates);
+      console.log(templateIndex);
+    } catch (error) {
+      console.error("Erro ao atualizar o status do template", error);
+    }
   };
   return (
     <div className="cabeca">
@@ -117,11 +136,28 @@ export function GerenciarTemplate() {
                     <td>{template.nome_template}</td>
                     <td>{template.usuario.nome}</td>
                     <td>{template.extensao}</td>
-                    <td>{template.campo.length}</td>
+                    <td>{template.extensao}</td>
                     <td>
-                      <select className="status" name="" id="">
-                        <option value="">Ativar template</option>
-                        <option value="">Desativar template</option>
+                      <select
+                        className="status"
+                        name=""
+                        id=""
+                        onChange={(e) =>
+                          updateTemplateStatus(
+                            template.idtemplate,
+                            e.target.value === "Ativar template"
+                          )
+                        }
+                        value={
+                          template.status
+                            ? "Ativar template"
+                            : "Desativar template"
+                        }
+                      >
+                        <option value="Ativar template">Ativar template</option>
+                        <option value="Desativar template">
+                          Desativar template
+                        </option>
                       </select>
                     </td>
                     <td>
