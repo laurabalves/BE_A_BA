@@ -32,7 +32,32 @@ usuariosRoutes.get("/:id/templates", async (req, res) => {
   }
 });
 
-//rota para adicionar usuarios
+//atualizar permissoes
+
+usuariosRoutes.put("/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const { isadm } = req.body; // Agora estamos capturando "isadm" do corpo da solicitação
+
+  console.log(" usuário:", userId);
+  console.log("Dados no corpo da solicitação:", req.body);
+
+  try {
+    const updatedUser = await prisma.usuario.update({
+      where: { idusuario: userId },
+      data: { isadm },
+    });
+
+    console.log("Usuário atualizado com sucesso:", updatedUser);
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error("Erro ao atualizar as permissões do usuário:", error);
+
+    res.status(500).send("Erro interno do servidor");
+  }
+});
+
+//ota para adicionar usuarios
 usuariosRoutes.post("/", async (req, res) => {
   const { nome, matricula, isadm, email, senha } = req.body;
 
