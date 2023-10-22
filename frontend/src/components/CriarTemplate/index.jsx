@@ -1,21 +1,17 @@
 import "./styles.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { LoginContext } from "../../context/LoginContext";
 
 export function CriarTemplate() {
-  //colunas
-  const [colunas, setqntColunas] = useState(0);
-  //nome
-  const [name, setName] = useState("");
+  const { register, handleSubmit, reset } = useForm();
+  const { login } = useContext(LoginContext);
+
   //bloco de input
   const [blocos, setBlocos] = useState([]);
 
-  const [namePreview, setNamePreview] = useState("");
-  const [colunasPreview, setColunasPreview] = useState([]);
-  const [formData, setFormData] = useState({
-    extensao: "",
-  });
   const handleConlunas = (e) => {
-    setqntColunas(e.target.value);
     const blocoArray = [];
     let qtdColunas = e.target.value;
 
@@ -23,39 +19,38 @@ export function CriarTemplate() {
       blocoArray.push({ input: "", select: "Opção 1" });
       qtdColunas = qtdColunas - 1;
     }
+
     setBlocos(blocoArray);
   };
 
-  const handleNameChange = (e) => {
-    const newName = e.target.value;
-    setName(newName);
-    setNamePreview(newName);
-  };
+  async function handleCreateTemplate(campos) {
+    try {
+      const { nomeTemplate, extensao } = campos;
+      const qtdCol = blocos.length;
 
-  const handleColunasChange = (e, index) => {
-    const newColunas = [...blocos];
-    newColunas[index].input = e.target.value;
-    setBlocos(newColunas);
+      const colunas = blocos.map((b, index) => {
+        const tipo = campos[`tipoCol-${index}`];
+        const nome_campo = campos[`tipoNome-${index}`];
 
-    const newColunasPreview = newColunas.map((bloco, i) => {
-      if (i === index) {
-        return e.target.value;
-      } else {
-        return bloco.input;
-      }
-    });
-    setColunasPreview(newColunasPreview);
-  };
-  // Botão para salvar os dados
+        return {
+          tipo,
+          nome_campo,
+        };
+      });
 
-  const handleSave = () => {
-    const dado = {
-      name: name,
-      colunas: blocos,
-      extensao: formData.extensao,
-    };
-    console.log(dado);
-  };
+      const { data } = await axios.post("http://localhost:4000/api/templates", {
+        nomeTemplate,
+        extensao,
+        idusuario: login.idusuario,
+        colunas,
+      });
+
+      reset();
+      setBlocos([]);
+    } catch (err) {
+      console.error("ero na req : post ", err);
+    }
+  }
 
   return (
     <div className="testandooo">
@@ -64,28 +59,23 @@ export function CriarTemplate() {
         <p>Insira as informações abaixo:</p>
       </div>
 
-      <form onSubmit={handleSave}>
+      <form onSubmit={handleSubmit(handleCreateTemplate)}>
         <div>
           <label htmlFor="nomeTemplate">Nome do template:</label>
           <input
             className="nomeTamplete"
+            required
             type="text"
-            name="nomeTemplate"
             placeholder="Insira o nome do template"
-            value={name}
-            onChange={handleNameChange}
+            {...register("nomeTemplate")}
           />
         </div>
         <div>
           <label htmlFor="extensao">Escolha a Extensão:</label>
-          <select
-            className="extensao"
-            value={formData.extensao}
-            onChange={(e) =>
-              setFormData({ ...formData, extensao: e.target.value })
-            }
-          >
-            <option value="CSV">CSV</option>
+          <select className="extensao" {...register("extensao")}>
+            <option value="CSV" defaultChecked>
+              CSV
+            </option>
             <option value="XLS">XLS</option>
             <option value="XLSX">XLSX</option>
           </select>
@@ -94,43 +84,40 @@ export function CriarTemplate() {
         <input
           type="number"
           name="qntColuna"
+          required
           placeholder="n° de coluna(s)"
           onChange={handleConlunas}
         />
-        <br />
+        <div className="blocos-container">
+          {blocos.map((bloco, index) => (
+            <div key={index} className="key">
+              <select
+                className="select-bloco"
+                required
+                {...register(`tipoCol-${index}`)}
+              >
+                <option required value="text">
+                  Numero
+                </option>
+                <option required value="number">
+                  Texto
+                </option>
+                <option required value="date">
+                  Data
+                </option>
+              </select>
+
+              <input
+                type="text"
+                placeholder="Nome da coluna"
+                required
+                {...register(`tipoNome-${index}`)}
+              />
+            </div>
+          ))}
+        </div>
+        <button type="submit">cadastrar template</button>
       </form>
-      <div className="blocos-container">
-        {blocos.map((bloco, index) => (
-          <div key={index} className="key">
-            <select
-              className="select-bloco"
-              value={bloco.select}
-              required
-              onChange={(e) => handleInputChange(e, "select", e.target.value)}
-            >
-              <option required value="Opção 1">
-                Numero
-              </option>
-              <option required value="Opção 2">
-                Texto
-              </option>
-              <option required value="Opção 3">
-                Data
-              </option>
-            </select>
-
-            <input
-              type="text"
-              placeholder="Nome da coluna"
-              value={bloco.input}
-              required
-              onChange={(e) => handleColunasChange(e, index)}
-            />
-          </div>
-        ))}
-      </div>
-
-      <button onClick={handleSave}>salvar</button>
       <div className="tabela-preview-container">
         <table className="tabela-preview">
           <tbody>
@@ -138,13 +125,13 @@ export function CriarTemplate() {
               <th>Nome</th>
             </tr>
             <tr>
-              <td>{namePreview}</td>
+              <td>{}</td>
             </tr>
             <tr>
               <th>Colunas</th>
             </tr>
             <tr>
-              <td>{colunasPreview.join(", ")}</td>
+              <td>{}</td>
             </tr>
           </tbody>
         </table>
