@@ -47,5 +47,5 @@ model template {
   campo         campo[]
   usuario       usuario?  @relation(fields: [idusuario], references: [idusuario], onDelete: NoAction, onUpdate: NoAction)
   upload        upload[]
-  
+  path String?
 }
