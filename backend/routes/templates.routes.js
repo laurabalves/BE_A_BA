@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../server.js";
 import axios from "axios";
+import path from "path";
 
 export const templatesRoutes = Router();
 
@@ -27,13 +28,29 @@ templatesRoutes.post("/", async (req, res) => {
       data: campos,
     });
 
+    const { data: pathTemplate } = await axios.post(
+      "http://127.0.0.1:5000/criar-template-2",
+      {
+        nomeTemplate,
+        extensao,
+        colunas,
+      }
+    );
+
+    await prisma.template.update({
+      where: { idtemplate: novoTemplate.idtemplate },
+      data: {
+        path: pathTemplate,
+      },
+    });
+
     res.status(201).json({
       created: true,
       template: novoTemplate,
       totalCampos: totalDeCamposInseridos,
     });
   } catch (erro) {
-    console.error("Erro ao criar usuário:", erro);
+    console.error("Erro ao criar template:", erro);
     res.status(500).json({ error: "Erro ao criar template." });
   }
 });
@@ -108,5 +125,33 @@ templatesRoutes.put("/:templateId", async (req, res) => {
   } catch (erro) {
     console.error("Erro ao atualizar o template:", erro);
     res.status(500).json({ error: "Erro no servidor." });
+  }
+});
+
+// rota para fazer o download do arquivo
+templatesRoutes.get("/:id", async (req, res) => {
+  const idTemplate = parseInt(req.params.id);
+
+  try {
+    const template = await prisma.template.findUnique({
+      where: { idtemplate: idTemplate },
+    });
+
+    if (!template.path) {
+      return res.status(400).json({ message: "File not found" });
+    }
+
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${template.nome_template}.${template.extensao}"`
+    );
+    if (template) {
+      res.sendFile(template.path);
+    } else {
+      res.status(404).json({ error: "Template não encontrado" });
+    }
+  } catch (error) {
+    console.error("Erro ao buscar o template:", error);
+    res.status(500).json({ error: "Erro no servidor" });
   }
 });

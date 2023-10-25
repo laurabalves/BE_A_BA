@@ -97,7 +97,7 @@ export function DashBoard() {
               return (
                 <tr key={template.idtemplate}>
                   <td>{template.nome_template}</td>
-                  <td>{template.usuario.nome}</td>
+                  <td>{template.usuario && template.usuario.nome}</td>
                   <td>
                     {format(new Date(template.data_criacao), "dd/MM/yyyy")}
                   </td>

@@ -56,6 +56,11 @@ export function GerenciarTemplate() {
       console.error("Erro ao atualizar o status do template", error);
     }
   };
+
+  const downloadTemplate = async (templateId) => {
+    event.preventDefault();
+    window.open(`http://localhost:4000/api/templates/${templateId}`, "_blank");
+  };
   return (
     <div className="cabeca">
       <h1>Gerenciamento de Template</h1> <br />
@@ -161,9 +166,12 @@ export function GerenciarTemplate() {
                       </select>
                     </td>
                     <td>
-                      <a className="download" href="">
+                      <button
+                        className="download"
+                        onClick={() => downloadTemplate(template.idtemplate)}
+                      >
                         <CloudArrowDown size={32} />
-                      </a>
+                      </button>
                     </td>
 
                     <td>

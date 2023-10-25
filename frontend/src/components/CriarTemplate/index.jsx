@@ -3,14 +3,17 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { LoginContext } from "../../context/LoginContext";
+import { MaterialSnackbar } from "../SnackBar";
 
 export function CriarTemplate() {
   const { register, handleSubmit, reset } = useForm();
   const { login } = useContext(LoginContext);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   //bloco de input
   const [blocos, setBlocos] = useState([]);
-
+  const [sucesso, setSucesso] = useState(false);
+  const isAdm = login ? login.isadm : false;
   const handleConlunas = (e) => {
     const blocoArray = [];
     let qtdColunas = e.target.value;
@@ -47,6 +50,7 @@ export function CriarTemplate() {
 
       reset();
       setBlocos([]);
+      setSnackbarOpen(true);
     } catch (err) {
       console.error("ero na req : post ", err);
     }
@@ -73,11 +77,11 @@ export function CriarTemplate() {
         <div>
           <label htmlFor="extensao">Escolha a Extensão:</label>
           <select className="extensao" {...register("extensao")}>
-            <option value="CSV" defaultChecked>
+            <option value="csv" defaultChecked>
               CSV
             </option>
-            <option value="XLS">XLS</option>
-            <option value="XLSX">XLSX</option>
+            <option value="xls">XLS</option>
+            <option value="xlsx">XLSX</option>
           </select>
         </div>
         <label htmlFor="qntColuna">Quantidade de coluna(s):</label>
@@ -96,13 +100,13 @@ export function CriarTemplate() {
                 required
                 {...register(`tipoCol-${index}`)}
               >
-                <option required value="text">
+                <option required value="Text">
                   Numero
                 </option>
-                <option required value="number">
+                <option required value="Number">
                   Texto
                 </option>
-                <option required value="date">
+                <option required value="Date/Time">
                   Data
                 </option>
               </select>
@@ -119,22 +123,21 @@ export function CriarTemplate() {
         <button type="submit">cadastrar template</button>
       </form>
       <div className="tabela-preview-container">
-        <table className="tabela-preview">
-          <tbody>
-            <tr>
-              <th>Nome</th>
-            </tr>
-            <tr>
-              <td>{}</td>
-            </tr>
-            <tr>
-              <th>Colunas</th>
-            </tr>
-            <tr>
-              <td>{}</td>
-            </tr>
-          </tbody>
-        </table>
+        {login.isadm ? (
+          <MaterialSnackbar
+            open={snackbarOpen}
+            children="Template criado com sucesso!"
+            onClose={() => setSnackbarOpen(false)}
+            type="success"
+          />
+        ) : (
+          <MaterialSnackbar
+            open={snackbarOpen}
+            children="Template criado com sucesso, aguarde a confirmação do administrador para usar-lo."
+            onClose={() => setSnackbarOpen(false)}
+            type="success"
+          />
+        )}
       </div>
     </div>
   );

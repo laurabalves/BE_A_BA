@@ -66,3 +66,7 @@ input[type="number"][name="qntColuna"]:focus {
   border-color: #355742; /* Cor da borda alterada quando o input está em foco */
   background-color: #fff; /* Cor de fundo alterada quando o input está em foco */
 }
+.mensagem-sucesso {
+  color: green;
+  font-weight: bold; /* Opcional, torna o texto em negrito */
+}

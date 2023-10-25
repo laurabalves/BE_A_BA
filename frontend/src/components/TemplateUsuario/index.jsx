@@ -106,28 +106,30 @@ export const TemplateUsuario = () => {
                 </tr>
               </thead>
               <tbody>
-                {templatesPorUsuario.map((template) => {
-                  return (
-                    <tr key={template.idtemplate}>
-                      <td>{template.nome_template}</td>
-                      <td>{template.usuario.nome}</td>
-                      <td>{template.extensao}</td>
-                      <td>{template.campo.length}</td>
+                {templatesPorUsuario
+                  .filter((template) => template.status)
+                  .map((template) => {
+                    return (
+                      <tr key={template.idtemplate}>
+                        <td>{template.nome_template}</td>
+                        <td>{template.usuario.nome}</td>
+                        <td>{template.extensao}</td>
+                        <td>{template.campo.length}</td>
 
-                      <td>
-                        <a className="download" href="">
-                          <CloudArrowDown size={32} />
-                        </a>
-                      </td>
+                        <td>
+                          <a className="download" href="">
+                            <CloudArrowDown size={32} />
+                          </a>
+                        </td>
 
-                      <td>
-                        <a className="upload" href="">
-                          <CloudArrowUp size={32} />
-                        </a>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td>
+                          <a className="upload" href="">
+                            <CloudArrowUp size={32} />
+                          </a>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </Table>
           </div>
