@@ -30,12 +30,33 @@ export function GerenciarTemplate() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("Nome do arquivo: ", file.name);
-      console.log("Tipo de arquivo: ", file.type);
-      setSelectedFile(file);
+      const formData = new FormData();
+      formData.append("csvFile", file);
+
+      // Aqui você pode incluir informações sobre o template
+      const templateData = {
+        idtemplate: 40, // Substitua pelo ID apropriado
+        idusuario: 1, // Substitua pelo ID apropriado
+      };
+
+      // Adicione informações do template aos dados do formulário
+      formData.append("templateData", JSON.stringify(templateData));
+      console.log(templateData);
+      // Envie a solicitação para o back-end
+      axios
+        .post("http://localhost:4000/api/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          // Lide com a resposta do servidor aqui
+        })
+        .catch((error) => {
+          // Lide com erros de upload aqui
+        });
     }
   };
-
   const handleUploadClick = () => {
     document.getElementById("fileInput").click();
   };
@@ -175,10 +196,11 @@ export function GerenciarTemplate() {
                     </td>
 
                     <td>
-                      <a className="upload" onClick={handleUploadClick}>
+                      <button className="upload" onClick={handleUploadClick}>
                         <CloudArrowUp size={32} />
-                      </a>
+                      </button>
                       <input
+                        name="csvFile"
                         id="fileInput"
                         type="file"
                         style={{ display: "none" }}

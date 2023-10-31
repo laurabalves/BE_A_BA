@@ -120,13 +120,16 @@ export function CriarTemplate() {
             </div>
           ))}
         </div>
-        <button type="submit">cadastrar template</button>
+        <button className="download1" type="submit">
+          cadastrar template
+        </button>
       </form>
       <div className="tabela-preview-container">
         {login.isadm ? (
           <MaterialSnackbar
             open={snackbarOpen}
-            children="Template criado com sucesso!"
+            children="Template criado com sucesso!
+            acesse em gerenciamento de template"
             onClose={() => setSnackbarOpen(false)}
             type="success"
           />

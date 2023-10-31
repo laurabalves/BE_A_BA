@@ -6,6 +6,7 @@ h2.criar {
   padding: 25px;
   width: 630px;
   height: auto;
+  text-align: left;
 }
 
 div.key {
@@ -17,7 +18,7 @@ div.key {
 
 /*forumlario*/
 form {
-  margin: 10px;
+  margin: 7px;
   text-align: left;
 }
 
@@ -69,4 +70,21 @@ input[type="number"][name="qntColuna"]:focus {
 .mensagem-sucesso {
   color: green;
   font-weight: bold; /* Opcional, torna o texto em negrito */
+}
+
+.download1 {
+  color: #fdfdfd;
+  display: inline-block;
+  margin-left: 0;
+  margin-top: 14px;
+  font-size: 17px;
+  padding: 7px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1e8a57;
+}
+
+.download1:hover {
+  background-color: #196e46;
+  color: #fff;
 }
