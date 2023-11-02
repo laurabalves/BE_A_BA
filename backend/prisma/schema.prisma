@@ -18,7 +18,7 @@ model campo {
 model upload {
   idupload      Int      @id @default(autoincrement())
   nome_arquivo  String   @db.VarChar(100)
-  path          String   @db.VarChar(100)
+  path          String   @db.VarChar(300)
   data          DateTime @db.Timestamp(6)
   idtemplate    Int
   idusuario     Int

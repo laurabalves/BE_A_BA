@@ -1,11 +1,67 @@
 import json
 import pandas as pd
+import os
 from openpyxl.utils.dataframe import dataframe_to_rows
 from flask import Flask, request, jsonify
+
 import openpyxl
 from datetime import datetime
+import logging
 
 app = Flask(__name__)
+
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+
+
+@app.route("/validate-upload", methods=["POST"])
+def validate_file():
+    data = request.json
+    config = data.get("colunas")
+    file_path = data.get("path")
+
+    if not config or not file_path:
+        return jsonify({"error": "Missing 'config' or 'path' in the request body"}), 400
+
+    ext = file_path.split('.')[-1]
+
+    if ext == 'xlsx':
+        df = pd.read_excel(file_path, engine='openpyxl')
+    elif ext == 'csv':
+        df = pd.read_csv(file_path)
+    else:
+        print("Unsupported file format. Only CSV and XLSX are supported.")
+        return jsonify({"error": 1}), 400
+
+    for column in config:
+        print('inside for => ', column)
+        col_name = column["nome_campo"]
+        if col_name not in df.columns:
+            print(f"Column '{col_name}' not found in the file.")
+            return jsonify({"error": 1}), 400
+
+        data_type = column["tipo"]
+
+        print('data_type => ', data_type)
+
+        if data_type == "Number":
+            # Validate using a regex for numbers
+            if not df[col_name].astype(str).str.match(r'\d+(\.\d+)?').all():
+                print(f"Validation failed for '{col_name}' (Number).")
+                return jsonify({"error": 1}), 400
+        elif data_type == "Text":
+            # Validate using a regex for text
+            if not df[col_name].astype(str).str.match(r'[A-Za-z0-9!@#$%^&*()_+{}\[\]:;<>,.?/~\-=\\| ]').all():
+                print(f"Validation failed for '{col_name}' (Text).")
+                return jsonify({"error": 1}), 400
+        elif data_type == "Date/Time":
+            # Validate using a regex for dates
+            if not df[col_name].astype(str).str.match(r'(\d{2}[/-]\d{2}[/-]\d{4}|\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})').all():
+                print(
+                    f"Validation failed for '{col_name}' - {df[col_name]} (Date).")
+                return jsonify({"error": 1}), 400
+
+    print('file validated successfully')
+    return jsonify({"error": 0})
 
 
 @app.route("/criar-template-2", methods=['POST'])

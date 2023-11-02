@@ -128,7 +128,7 @@ templatesRoutes.put("/:templateId", async (req, res) => {
   }
 });
 
-// rota para fazer o download do arquivo
+// rota para fazer o download do template
 templatesRoutes.get("/:id", async (req, res) => {
   const idTemplate = parseInt(req.params.id);
 

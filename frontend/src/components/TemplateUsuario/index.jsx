@@ -34,6 +34,10 @@ export const TemplateUsuario = () => {
     }
   }
 
+  const downloadTemplate = async (templateId) => {
+    event.preventDefault();
+    window.open(`http://localhost:4000/api/templates/${templateId}`, "_blank");
+  };
   useEffect(() => {
     getTemplatesPorUsuario();
   }, []);
@@ -117,9 +121,14 @@ export const TemplateUsuario = () => {
                         <td>{template.campo.length}</td>
 
                         <td>
-                          <a className="download" href="">
+                          <button
+                            className="download"
+                            onClick={() =>
+                              downloadTemplate(template.idtemplate)
+                            }
+                          >
                             <CloudArrowDown size={32} />
-                          </a>
+                          </button>
                         </td>
 
                         <td>
@@ -134,52 +143,7 @@ export const TemplateUsuario = () => {
             </Table>
           </div>
         </div>
-        <div className="cabeca">
-          <h1>Meus arquivos</h1>
-        </div>
-
-        <div className="comec">
-          <Table striped shover="true">
-            <thead>
-              <tr>
-                <th
-                  style={{
-                    backgroundColor: "rgb(27, 163, 84)",
-                    color: "white",
-                    padding: "20px",
-                  }}
-                >
-                  Nome Template
-                </th>
-                <th
-                  style={{
-                    backgroundColor: "rgb(27, 163, 84)",
-                    color: "white",
-                    padding: "20px",
-                  }}
-                >
-                  Colunas
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {iserir.map((dados) => {
-                return (
-                  <tr>
-                    <td>{dados.nomeArquivo}</td>
-                    <td>{dados.colunas}</td>
-                    <td style={{ width: "200px" }}>
-                      <a className="download" href="">
-                        <CloudArrowDown size={32} />
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
+        <div className="cabeca"></div>
       </div>
     </div>
   );

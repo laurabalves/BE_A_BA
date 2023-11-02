@@ -5,12 +5,14 @@ import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { MaterialSnackbar } from "../SnackBar";
 
 export function GerenciarTemplate() {
   const [templates, setTemplates] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previousTemplates, setPreviousTemplates] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   async function getAllTemplates() {
     try {
@@ -50,9 +52,11 @@ export function GerenciarTemplate() {
           },
         })
         .then((response) => {
-          // Lide com a resposta do servidor aqui
+          console.log("Upload bem-sucedido"); // Verifique se essa mensagem aparece no console // Lide com a resposta do servidor aqui
         })
+
         .catch((error) => {
+          setSnackbarOpen(true);
           // Lide com erros de upload aqui
         });
     }
@@ -124,15 +128,6 @@ export function GerenciarTemplate() {
                     padding: "20px",
                   }}
                 >
-                  Colunas
-                </th>
-                <th
-                  style={{
-                    backgroundColor: "rgb(27, 163, 84)",
-                    color: "white",
-                    padding: "20px",
-                  }}
-                >
                   Operação
                 </th>
                 <th
@@ -162,7 +157,7 @@ export function GerenciarTemplate() {
                     <td>{template.nome_template}</td>
                     <td>{template.usuario.nome}</td>
                     <td>{template.extensao}</td>
-                    <td>{template.extensao}</td>
+
                     <td>
                       <select
                         className="status"
@@ -198,7 +193,14 @@ export function GerenciarTemplate() {
                     <td>
                       <button className="upload" onClick={handleUploadClick}>
                         <CloudArrowUp size={32} />
+                        <MaterialSnackbar
+                          open={snackbarOpen}
+                          children="Ocorreu um erro na validação do arquivo"
+                          onClose={() => setSnackbarOpen(false)}
+                          type="error"
+                        />
                       </button>
+
                       <input
                         name="csvFile"
                         id="fileInput"
