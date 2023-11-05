@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "upload" ADD COLUMN     "status" VARCHAR(50) NOT NULL DEFAULT 'defaultValue',
+ALTER COLUMN "path" SET DATA TYPE VARCHAR(300);
