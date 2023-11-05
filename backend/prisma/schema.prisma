@@ -20,7 +20,7 @@ model upload {
   nome_arquivo  String   @db.VarChar(100)
   path          String   @db.VarChar(300)
   data          DateTime @db.Timestamp(6)
-status        String   @db.VarChar(50) @default("defaultValue")
+  status        String   @db.VarChar(50) @default("defaultValue")
   idtemplate    Int
   idusuario     Int
   template      template @relation(fields: [idtemplate], references: [idtemplate], onDelete: NoAction, onUpdate: NoAction)

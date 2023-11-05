@@ -50,6 +50,7 @@ uploadRoutes.post("/", upload.single("file"), async (req, res) => {
         data: new Date(),
         idtemplate: idtemplateInt,
         idusuario: idusuarioInt,
+        status: "validando",
       },
     });
 
@@ -75,12 +76,13 @@ uploadRoutes.post("/", upload.single("file"), async (req, res) => {
     };
 
     const body = {
+      idupload: upload.idupload,
       path,
       colunas: campos,
     };
 
     console.log(body);
-    const teste = await axios.post(urlPython, body, {
+    axios.post(urlPython, body, {
       headers,
     });
 
@@ -92,4 +94,22 @@ uploadRoutes.post("/", upload.single("file"), async (req, res) => {
       .status(500)
       .json({ error: "Ocorreu um erro ao fazer upload do arquivo." });
   }
+});
+
+uploadRoutes.post("/is-template-valid", async (req, res) => {
+  const error = req.body.error;
+  const idupload = req.body.idupload;
+
+  const status = !error ? "validado" : "invalido";
+
+  const updated = await prisma.upload.update({
+    where: {
+      idupload: Number(idupload),
+    },
+    data: {
+      status,
+    },
+  });
+
+  return res.json(updated);
 });

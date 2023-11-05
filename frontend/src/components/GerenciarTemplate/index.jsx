@@ -3,9 +3,10 @@ import Table from "react-bootstrap/Table";
 
 import { CloudArrowDown, CloudArrowUp } from "phosphor-react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { MaterialSnackbar } from "../SnackBar";
+import { LoginContext } from "../../context/LoginContext";
 
 export function GerenciarTemplate() {
   const [templates, setTemplates] = useState([]);
@@ -13,6 +14,8 @@ export function GerenciarTemplate() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previousTemplates, setPreviousTemplates] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const { login } = useContext(LoginContext);
 
   async function getAllTemplates() {
     try {
@@ -29,36 +32,34 @@ export function GerenciarTemplate() {
   useEffect(() => {
     getAllTemplates();
   }, []);
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("csvFile", file);
+  const handleFileChange = async (e) => {
+    try {
+      const idtemplate = e.target.name;
+      const file = e.target.files[0];
+      console.log("aqui");
+      console.log("file => ", file);
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("idtemplate", idtemplate);
+        formData.append("idusuario", login.idusuario);
+        formData.append("data", new Date());
+        formData.append("nome_arquivo", file.name);
+        // Envie a solicitação para o back-end
+        const { data } = await axios.post(
+          "http://localhost:4000/api/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-      // Aqui você pode incluir informações sobre o template
-      const templateData = {
-        idtemplate: 40, // Substitua pelo ID apropriado
-        idusuario: 1, // Substitua pelo ID apropriado
-      };
-
-      // Adicione informações do template aos dados do formulário
-      formData.append("templateData", JSON.stringify(templateData));
-      console.log(templateData);
-      // Envie a solicitação para o back-end
-      axios
-        .post("http://localhost:4000/api/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log("Upload bem-sucedido"); // Verifique se essa mensagem aparece no console // Lide com a resposta do servidor aqui
-        })
-
-        .catch((error) => {
-          setSnackbarOpen(true);
-          // Lide com erros de upload aqui
-        });
+        console.log("data => ", data);
+      }
+    } catch (err) {
+      console.error("err on upload => ", err);
     }
   };
   const handleUploadClick = () => {
@@ -202,7 +203,7 @@ export function GerenciarTemplate() {
                       </button>
 
                       <input
-                        name="csvFile"
+                        name={template.idtemplate}
                         id="fileInput"
                         type="file"
                         style={{ display: "none" }}
