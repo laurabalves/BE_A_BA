@@ -100,11 +100,11 @@ export function CriarTemplate() {
                 required
                 {...register(`tipoCol-${index}`)}
               >
-                <option required value="Text">
-                  Numero
+                <option required value="Text" defaultChecked>
+                  Texto
                 </option>
                 <option required value="Number">
-                  Texto
+                  Numero
                 </option>
                 <option required value="Date/Time">
                   Data

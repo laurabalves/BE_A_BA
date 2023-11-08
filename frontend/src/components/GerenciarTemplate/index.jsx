@@ -13,7 +13,6 @@ export function GerenciarTemplate() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previousTemplates, setPreviousTemplates] = useState([]);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const { login } = useContext(LoginContext);
 
@@ -34,10 +33,8 @@ export function GerenciarTemplate() {
   }, []);
   const handleFileChange = async (e) => {
     try {
-      const idtemplate = e.target.name;
+      const idtemplate = e.target.id;
       const file = e.target.files[0];
-      console.log("aqui");
-      console.log("file => ", file);
       if (file) {
         const formData = new FormData();
         formData.append("file", file);
@@ -60,11 +57,10 @@ export function GerenciarTemplate() {
       }
     } catch (err) {
       console.error("err on upload => ", err);
+      // Upload com erro
     }
   };
-  const handleUploadClick = () => {
-    document.getElementById("fileInput").click();
-  };
+
   const updateTemplateStatus = async (templateId, isActive) => {
     try {
       await axios.put(`http://localhost:4000/api/templates/${templateId}`, {
@@ -77,6 +73,7 @@ export function GerenciarTemplate() {
       updatedTemplates[templateIndex].status = isActive;
       // Atualize o estado do template localmente após a alteração no servidor.
       setTemplates(updatedTemplates);
+
       console.log(templateIndex);
     } catch (error) {
       console.error("Erro ao atualizar o status do template", error);
@@ -192,19 +189,12 @@ export function GerenciarTemplate() {
                     </td>
 
                     <td>
-                      <button className="upload" onClick={handleUploadClick}>
+                      <label className="upload" for={template.idtemplate}>
                         <CloudArrowUp size={32} />
-                        <MaterialSnackbar
-                          open={snackbarOpen}
-                          children="Ocorreu um erro na validação do arquivo"
-                          onClose={() => setSnackbarOpen(false)}
-                          type="error"
-                        />
-                      </button>
-
+                      </label>
                       <input
                         name={template.idtemplate}
-                        id="fileInput"
+                        id={template.idtemplate}
                         type="file"
                         style={{ display: "none" }}
                         onChange={handleFileChange}

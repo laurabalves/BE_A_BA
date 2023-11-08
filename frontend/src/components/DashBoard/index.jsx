@@ -1,6 +1,6 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
-import { DownloadSimple, MagnifyingGlass } from "phosphor-react";
+import { DownloadSimple, MagnifyingGlass, Upload } from "phosphor-react";
 import { LoginContext } from "../../context/LoginContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import { format } from "date-fns";
@@ -12,7 +12,29 @@ import { CloudArrowDown } from "phosphor-react";
 export function DashBoard() {
   // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
   const [templates, setTemplates] = useState([]);
+  const [upload, setUpload] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const downloadArq = async (UploadId) => {
+    event.preventDefault();
+    window.open(
+      `http://localhost:4000/api/upload/arquivos/${UploadId}`,
+      "_blank"
+    );
+  };
+  async function getUploads() {
+    try {
+      const { data: Uploads } = await axios.get(
+        " http://localhost:5000/uploads"
+      );
+      setUpload(Uploads);
+    } catch (error) {
+      console.error(
+        "Erro carregando todos os templates no dashboard python",
+        error
+      );
+    }
+  }
+
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -27,9 +49,10 @@ export function DashBoard() {
 
   useEffect(() => {
     getAllTemplates();
+    getUploads();
   }, []);
-  const filteredTemplates = templates.filter((template) =>
-    template.nome_template.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUploads = upload.filter((item) =>
+    item.nome_arquivo.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
     <div className="in">
@@ -93,28 +116,26 @@ export function DashBoard() {
             </tr>
           </thead>
           <tbody>
-            {filteredTemplates.map((template) => {
-              return (
-                <tr key={template.idtemplate}>
-                  <td>{template.nome_template}</td>
-                  <td>{template.usuario && template.usuario.nome}</td>
+            {filteredUploads.map((item) => (
+              <tr key={item.idupload}>
+                <td>{item.nome_arquivo}</td>
+                <td>{item.nome_usuario}</td>
+                <td>{format(new Date(item.data), "dd/MM/yyyy HH:mm:ss")}</td>
+                <td>
                   <td>
-                    {format(new Date(template.data_criacao), "dd/MM/yyyy")}
-                  </td>
-                  <td>
-                    <a className="download" href="">
+                    <button className="download" onClick={downloadArq}>
                       <CloudArrowDown size={32} />
-                    </a>
+                    </button>
                   </td>
-                </tr>
-              );
-            })}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
 
       <div className="box">
-        <div className="qtnArq">{filteredTemplates.length} arquivos</div>
+        <div className="qtnArq">{filteredUploads.length} arquivos</div>
       </div>
     </div>
   );
