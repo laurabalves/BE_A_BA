@@ -13,9 +13,16 @@ export function GerenciarTemplate() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previousTemplates, setPreviousTemplates] = useState([]);
-
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarType, setSnackbarType] = useState(""); // Pode ser "success" ou "error"
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(LoginContext);
-
+  function openSnackbar(type, message) {
+    setSnackbarType(type);
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  }
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -33,9 +40,11 @@ export function GerenciarTemplate() {
   }, []);
   const handleFileChange = async (e) => {
     try {
+      setLoading(true);
       const idtemplate = e.target.id;
       const file = e.target.files[0];
       if (file) {
+        openSnackbar("success", "Carregando...");
         const formData = new FormData();
         formData.append("file", file);
         formData.append("idtemplate", idtemplate);
@@ -43,7 +52,8 @@ export function GerenciarTemplate() {
         formData.append("data", new Date());
         formData.append("nome_arquivo", file.name);
         // Envie a solicitação para o back-end
-        const { data } = await axios.post(
+
+        const uploadResponse = await axios.post(
           "http://localhost:4000/api/upload",
           formData,
           {
@@ -53,14 +63,43 @@ export function GerenciarTemplate() {
           }
         );
 
-        console.log("data => ", data);
+        const idupload = uploadResponse.data.idupload;
+
+        const statusTimer = setInterval(async () => {
+          const statusResponse = await axios.get(
+            `http://localhost:4000/api/upload/is-template-valid/${idupload}`
+          );
+
+          const status = statusResponse.data.status;
+
+          if (status === "validado" || status === "invalido") {
+            clearInterval(statusTimer); // Pare o temporizador quando estiver validado ou inválido
+            let message = "";
+
+            if (status === "validado") {
+              message = "Arquivo validado com sucesso";
+            } else if (status === "invalido") {
+              message = "Ocorreu um erro na validação do arquivo";
+            }
+
+            // Exiba a mensagem de sucesso ou erro
+            openSnackbar(status === "validado" ? "success" : "error", message);
+
+            // Defina o estado de carregamento como falso
+            setLoading(false);
+          }
+        }, 2000); // Verifique a cada 2 segundos
       }
     } catch (err) {
+      setLoading(false); // Defina o estado de carregamento como falso em caso de erro
       console.error("err on upload => ", err);
       // Upload com erro
+      openSnackbar(
+        "error",
+        "Erro no upload. Por favor, tente novamente mais tarde."
+      );
     }
   };
-
   const updateTemplateStatus = async (templateId, isActive) => {
     try {
       await axios.put(`http://localhost:4000/api/templates/${templateId}`, {
@@ -84,11 +123,14 @@ export function GerenciarTemplate() {
     event.preventDefault();
     window.open(`http://localhost:4000/api/templates/${templateId}`, "_blank");
   };
+
   return (
     <div className="cabeca">
       <h1>Gerenciamento de Template</h1> <br />
       <div>
         <div className="tabela-header">
+          <div className="loading-indicator"></div>
+
           <Table striped hover>
             <thead>
               <tr>
@@ -191,6 +233,13 @@ export function GerenciarTemplate() {
                     <td>
                       <label className="upload" for={template.idtemplate}>
                         <CloudArrowUp size={32} />
+                        <MaterialSnackbar
+                          type={snackbarType}
+                          open={snackbarOpen}
+                          onClose={() => setSnackbarOpen(false)}
+                        >
+                          {snackbarMessage}
+                        </MaterialSnackbar>
                       </label>
                       <input
                         name={template.idtemplate}

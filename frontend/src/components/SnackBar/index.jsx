@@ -9,7 +9,7 @@ export const MaterialSnackbar = ({ type, open, children, onClose }) => {
   const severity = type === "error" ? "error" : "success"; // Ou qualquer outra lógica de mapeamento que você precise
 
   return (
-    <Snackbar open={open} autoHideDuration={3000} onClose={onClose}>
+    <Snackbar open={open} autoHideDuration={5000} onClose={onClose}>
       <Alert severity={severity} onClose={onClose}>
         {children}
       </Alert>
