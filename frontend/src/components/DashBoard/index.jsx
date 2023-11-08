@@ -1,6 +1,6 @@
 import "./styles.css";
 import Table from "react-bootstrap/Table";
-import { DownloadSimple, MagnifyingGlass, Upload } from "phosphor-react";
+import { DownloadSimple, MagnifyingGlass } from "phosphor-react";
 import { LoginContext } from "../../context/LoginContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import { format } from "date-fns";
@@ -14,13 +14,6 @@ export function DashBoard() {
   const [templates, setTemplates] = useState([]);
   const [upload, setUpload] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const downloadArq = async (UploadId) => {
-    event.preventDefault();
-    window.open(
-      `http://localhost:4000/api/upload/arquivos/${UploadId}`,
-      "_blank"
-    );
-  };
   async function getUploads() {
     try {
       const { data: Uploads } = await axios.get(
@@ -122,11 +115,12 @@ export function DashBoard() {
                 <td>{item.nome_usuario}</td>
                 <td>{format(new Date(item.data), "dd/MM/yyyy HH:mm:ss")}</td>
                 <td>
-                  <td>
-                    <button className="download" onClick={downloadArq}>
-                      <CloudArrowDown size={32} />
-                    </button>
-                  </td>
+                  <a
+                    className="download"
+                    href={`http://localhost:4000/api/upload/download/${item.idupload}`}
+                  >
+                    <CloudArrowDown size={32} />
+                  </a>
                 </td>
               </tr>
             ))}

@@ -14,7 +14,7 @@ export function GerenciarTemplate() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previousTemplates, setPreviousTemplates] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarType, setSnackbarType] = useState(""); // Pode ser "success" ou "error"
+  const [snackbarType, setSnackbarType] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useContext(LoginContext);
@@ -51,7 +51,6 @@ export function GerenciarTemplate() {
         formData.append("idusuario", login.idusuario);
         formData.append("data", new Date());
         formData.append("nome_arquivo", file.name);
-        // Envie a solicitação para o back-end
 
         const uploadResponse = await axios.post(
           "http://localhost:4000/api/upload",
@@ -73,7 +72,7 @@ export function GerenciarTemplate() {
           const status = statusResponse.data.status;
 
           if (status === "validado" || status === "invalido") {
-            clearInterval(statusTimer); // Pare o temporizador quando estiver validado ou inválido
+            clearInterval(statusTimer);
             let message = "";
 
             if (status === "validado") {
@@ -82,18 +81,15 @@ export function GerenciarTemplate() {
               message = "Ocorreu um erro na validação do arquivo";
             }
 
-            // Exiba a mensagem de sucesso ou erro
             openSnackbar(status === "validado" ? "success" : "error", message);
 
-            // Defina o estado de carregamento como falso
             setLoading(false);
           }
-        }, 2000); // Verifique a cada 2 segundos
+        }, 5000);
       }
     } catch (err) {
-      setLoading(false); // Defina o estado de carregamento como falso em caso de erro
+      setLoading(false);
       console.error("err on upload => ", err);
-      // Upload com erro
       openSnackbar(
         "error",
         "Erro no upload. Por favor, tente novamente mais tarde."

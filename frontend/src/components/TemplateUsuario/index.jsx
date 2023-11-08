@@ -7,17 +7,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { LoginContext } from "../../context/LoginContext";
 import axios from "axios";
-
-const iserir = [
-  {
-    nomeArquivo: "Total_distribuidora",
-    colunas: 6,
-  },
-];
+import { MaterialSnackbar } from "../SnackBar";
 
 export const TemplateUsuario = () => {
   const { login } = useContext(LoginContext);
-  // chamada o backend que vai se conectar ao banco de dados e trazer o dado necessário para a tabela
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarType, setSnackbarType] = useState("");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  function openSnackbar(type, message) {
+    setSnackbarType(type);
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  }
   const [templatesPorUsuario, setTemplatesPorUsuario] = useState([]);
 
   async function getTemplatesPorUsuario() {
@@ -33,6 +35,64 @@ export const TemplateUsuario = () => {
       console.error("Erro carregando todos os templates no dashboard", error);
     }
   }
+  const handleFileChange = async (e) => {
+    try {
+      setLoading(true);
+      const idtemplate = e.target.id;
+      const file = e.target.files[0];
+      if (file) {
+        openSnackbar("success", "Carregando...");
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("idtemplate", idtemplate);
+        formData.append("idusuario", login.idusuario);
+        formData.append("data", new Date());
+        formData.append("nome_arquivo", file.name);
+
+        const uploadResponse = await axios.post(
+          "http://localhost:4000/api/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        const idupload = uploadResponse.data.idupload;
+
+        const statusTimer = setInterval(async () => {
+          const statusResponse = await axios.get(
+            `http://localhost:4000/api/upload/is-template-valid/${idupload}`
+          );
+
+          const status = statusResponse.data.status;
+
+          if (status === "validado" || status === "invalido") {
+            clearInterval(statusTimer);
+            let message = "";
+
+            if (status === "validado") {
+              message = "Arquivo validado com sucesso";
+            } else if (status === "invalido") {
+              message = "Ocorreu um erro na validação do arquivo";
+            }
+
+            openSnackbar(status === "validado" ? "success" : "error", message);
+
+            setLoading(false);
+          }
+        }, 3000);
+      }
+    } catch (err) {
+      setLoading(false);
+      console.error("err on upload => ", err);
+      openSnackbar(
+        "error",
+        "Erro no upload. Por favor, tente novamente mais tarde."
+      );
+    }
+  };
 
   const downloadTemplate = async (templateId) => {
     event.preventDefault();
@@ -132,9 +192,23 @@ export const TemplateUsuario = () => {
                         </td>
 
                         <td>
-                          <a className="upload" href="">
+                          <label className="upload" for={template.idtemplate}>
                             <CloudArrowUp size={32} />
-                          </a>
+                            <MaterialSnackbar
+                              type={snackbarType}
+                              open={snackbarOpen}
+                              onClose={() => setSnackbarOpen(false)}
+                            >
+                              {snackbarMessage}
+                            </MaterialSnackbar>
+                          </label>
+                          <input
+                            name={template.idtemplate}
+                            id={template.idtemplate}
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={handleFileChange}
+                          />
                         </td>
                       </tr>
                     );
