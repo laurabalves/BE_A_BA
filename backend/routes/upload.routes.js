@@ -193,3 +193,31 @@ uploadRoutes.get("/is-template-valid/:idupload", async (req, res) => {
     res.status(500).json({ status: "Erro interno do servidor" });
   }
 });
+
+uploadRoutes.get("/resgatar-arquivos/:idUsuario", async (req, res) => {
+  try {
+    const idUsuario = parseInt(req.params.idUsuario); // Converte o ID do usuário da string para inteiro
+
+    const templatesValidos = await prisma.upload.findMany({
+      where: {
+        idusuario: idUsuario,
+        status: "validado",
+      },
+      select: {
+        idupload: true,
+        nome_arquivo: true,
+        idusuario: true,
+        criartemplate: {
+          select: {
+            nome: true,
+          },
+        },
+      },
+    });
+
+    res.json(templatesValidos);
+  } catch (error) {
+    console.error("Erro ao acessar os templates válidos do usuário:", error);
+    res.status(500).send("Erro ao acessar os templates válidos do usuário");
+  }
+});
