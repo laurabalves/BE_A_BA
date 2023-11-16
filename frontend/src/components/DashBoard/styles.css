@@ -1,8 +1,16 @@
 div.in {
-  position: center;
-
-  height: 700px;
+  display: flex;
+  flex-direction: column;
+  height: 1000px;
   padding: 30px;
+  margin-top: 30px;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 90px;
+  margin-left: 50px;
 }
 
 div.in h1 {

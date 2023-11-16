@@ -7,6 +7,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { MaterialSnackbar } from "../SnackBar";
 import { LoginContext } from "../../context/LoginContext";
+import { Modal } from "../Modal";
 
 export function GerenciarTemplate() {
   const [templates, setTemplates] = useState([]);
@@ -18,11 +19,18 @@ export function GerenciarTemplate() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useContext(LoginContext);
-  function openSnackbar(type, message) {
-    setSnackbarType(type);
-    setSnackbarMessage(message);
-    setSnackbarOpen(true);
-  }
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    templateId: null,
+  });
+  const openModal = (templateId) => {
+    setModalState({ isOpen: true, templateId });
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, templateId: null });
+  };
+
   async function getAllTemplates() {
     try {
       const { data: allTemplates } = await axios.get(
@@ -38,64 +46,7 @@ export function GerenciarTemplate() {
   useEffect(() => {
     getAllTemplates();
   }, []);
-  const handleFileChange = async (e) => {
-    try {
-      setLoading(true);
-      const idtemplate = e.target.id;
-      const file = e.target.files[0];
-      if (file) {
-        openSnackbar("success", "Carregando...");
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("idtemplate", idtemplate);
-        formData.append("idusuario", login.idusuario);
-        formData.append("data", new Date());
-        formData.append("nome_arquivo", file.name);
 
-        const uploadResponse = await axios.post(
-          "http://localhost:4000/api/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        const idupload = uploadResponse.data.idupload;
-
-        const statusTimer = setInterval(async () => {
-          const statusResponse = await axios.get(
-            `http://localhost:4000/api/upload/is-template-valid/${idupload}`
-          );
-
-          const status = statusResponse.data.status;
-
-          if (status === "validado" || status === "invalido") {
-            clearInterval(statusTimer);
-            let message = "";
-
-            if (status === "validado") {
-              message = "Arquivo validado com sucesso";
-            } else if (status === "invalido") {
-              message = "Ocorreu um erro na validação do arquivo";
-            }
-
-            openSnackbar(status === "validado" ? "success" : "error", message);
-
-            setLoading(false);
-          }
-        }, 2000);
-      }
-    } catch (err) {
-      setLoading(false);
-      console.error("err on upload => ", err);
-      openSnackbar(
-        "error",
-        "Erro no upload. Por favor, tente novamente mais tarde."
-      );
-    }
-  };
   const updateTemplateStatus = async (templateId, isActive) => {
     try {
       await axios.put(`http://localhost:4000/api/templates/${templateId}`, {
@@ -119,6 +70,10 @@ export function GerenciarTemplate() {
     event.preventDefault();
     window.open(`http://localhost:4000/api/templates/${templateId}`, "_blank");
   };
+
+  function adjustModalState(isOpen, templateId) {
+    setModalState({ isOpen, templateId });
+  }
 
   return (
     <div className="cabeca">
@@ -227,23 +182,24 @@ export function GerenciarTemplate() {
                     </td>
 
                     <td>
-                      <label className="upload" for={template.idtemplate}>
-                        <CloudArrowUp size={32} />
-                        <MaterialSnackbar
-                          type={snackbarType}
-                          open={snackbarOpen}
-                          onClose={() => setSnackbarOpen(false)}
-                        >
-                          {snackbarMessage}
-                        </MaterialSnackbar>
-                      </label>
-                      <input
-                        name={template.idtemplate}
-                        id={template.idtemplate}
-                        type="file"
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                      />
+                      <div>
+                        <label className="upload">
+                          <CloudArrowUp
+                            size={32}
+                            onClick={() => openModal(template.idtemplate)}
+                          />
+                        </label>
+                        {modalState.isOpen &&
+                          modalState.templateId === template.idtemplate && (
+                            <Modal
+                              isOpen={true}
+                              closeModal={closeModal}
+                              template={template}
+                              login={login}
+                              handleModalState={adjustModalState}
+                            />
+                          )}
+                      </div>
                     </td>
                   </tr>
                 );

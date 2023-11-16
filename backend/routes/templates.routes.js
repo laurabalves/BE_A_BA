@@ -2,12 +2,14 @@ import { Router } from "express";
 import { prisma } from "../server.js";
 import axios from "axios";
 import path from "path";
+import { __dirname } from "../server.js";
 
 export const templatesRoutes = Router();
 
 //rota para criar template
 templatesRoutes.post("/", async (req, res) => {
   const { nomeTemplate, extensao, idusuario, colunas } = req.body;
+  const fullpath = path.join(__dirname, "..", "python", "templates");
 
   try {
     const novoTemplate = await prisma.template.create({
@@ -34,6 +36,7 @@ templatesRoutes.post("/", async (req, res) => {
         nomeTemplate,
         extensao,
         colunas,
+        fullpath,
       }
     );
 

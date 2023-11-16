@@ -1,19 +1,18 @@
+import axios from "axios";
+import express from "express";
 import { Router } from "express";
 import multer from "multer";
-const path = "path";
-import { prisma } from "../server.js";
-import fs from "fs";
-import FormData from "form-data";
-import axios from "axios";
-import { createReadStream } from "fs";
+import { __dirname, prisma } from "../server.js";
+import path from "path";
 export const uploadRoutes = Router();
+
+uploadRoutes.use(express.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(
-      null,
-      "C:/Users/980190/Documents/BE_A_BA/projetos/BE_A_BA/python/arquivos"
-    ); // Pasta onde os arquivos serão armazenados temporariamente
+    const dest = req.body.dirResult || "";
+    const fullpath = path.join(__dirname, "..", "python", "arquivos", dest);
+    cb(null, fullpath); // Pasta onde os arquivos serão armazenados temporariamente
   },
   filename: (req, file, cb) => {
     const timestamp = Date.now();
@@ -23,6 +22,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage, // Use a configuração de storage em vez do destino
+  limits: { fileSize: 5 * 1024 * 1024 },
 });
 
 let idtemplate = null;
@@ -30,8 +30,8 @@ let idusuario = null;
 uploadRoutes.post("/", upload.single("file"), async (req, res) => {
   try {
     const { originalname, path } = req.file;
-    const idtemplate = req.query.idtemplate || req.body.idtemplate;
-    const idusuario = req.query.idusuario || req.body.idusuario;
+    const idtemplate = req.body.idtemplate;
+    const idusuario = req.body.idusuario;
 
     const idtemplateInt = parseInt(idtemplate, 10);
     const idusuarioInt = parseInt(idusuario, 10);
@@ -64,7 +64,7 @@ uploadRoutes.post("/", upload.single("file"), async (req, res) => {
     const urlPython = "http://127.0.0.1:5000/validate-upload"; // Substitua pela URL correta
 
     const headers = {
-      "Content-Type": "application/json", // Defina o Content-Type como application/json
+      "Content-Type": "application/json",
     };
 
     const body = {

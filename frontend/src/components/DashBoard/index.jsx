@@ -14,6 +14,7 @@ export function DashBoard() {
   const [templates, setTemplates] = useState([]);
   const [upload, setUpload] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
   async function getUploads() {
     try {
       const { data: Uploads } = await axios.get(
@@ -47,9 +48,11 @@ export function DashBoard() {
   const filteredUploads = upload.filter((item) =>
     item.nome_arquivo.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   return (
     <div className="in">
       <h1>Dashboard</h1>
+
       <div className="div-pesquisar">
         <div className="input-container">
           <input
@@ -62,12 +65,11 @@ export function DashBoard() {
           <FontAwesomeIcon icon={faSearch} className="search-icon" />
         </div>
       </div>
-
       <div
         className="tabela-header"
         style={{ maxHeight: "400px", overflowY: "auto" }}
       >
-        <Table striped hover>
+        <Table striped hover className="custom-table">
           <thead>
             <tr>
               <th

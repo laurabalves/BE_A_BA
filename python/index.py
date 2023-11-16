@@ -118,7 +118,8 @@ def criar_template_2():
     current_datetime = datetime.utcnow()
     current_timestamp = current_datetime.timestamp()
 
-    file_name = f'C:/Users/980190/Documents/BE_A_BA/projetos/BE_A_BA/python/templates/{current_timestamp}-{input_json["nomeTemplate"]}.{output_format}'
+    # file_name = f'C:/Users/980190/Documents/BE_A_BA/projetos/BE_A_BA/python/templates/{current_timestamp}-{input_json["nomeTemplate"]}.{output_format}'
+    file_name = f'{input_json["fullpath"]}/{current_timestamp}-{input_json["nomeTemplate"]}.{output_format}'
 
     if output_format == "xlsx" or output_format == "xls":
         wb = openpyxl.Workbook()
