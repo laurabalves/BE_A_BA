@@ -8,6 +8,7 @@ import "./style.css";
 import { LoginContext } from "../../context/LoginContext";
 import axios from "axios";
 import { MaterialSnackbar } from "../SnackBar";
+import { Modal } from "../Modal";
 
 export const TemplateUsuario = () => {
   const { login } = useContext(LoginContext);
@@ -15,6 +16,18 @@ export const TemplateUsuario = () => {
   const [snackbarType, setSnackbarType] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    templateId: null,
+  });
+  const openModal = (templateId) => {
+    setModalState({ isOpen: true, templateId });
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, templateId: null });
+  };
+
   function openSnackbar(type, message) {
     setSnackbarType(type);
     setSnackbarMessage(message);
@@ -35,64 +48,10 @@ export const TemplateUsuario = () => {
       console.error("Erro carregando todos os templates no dashboard", error);
     }
   }
-  const handleFileChange = async (e) => {
-    try {
-      setLoading(true);
-      const idtemplate = e.target.id;
-      const file = e.target.files[0];
-      if (file) {
-        openSnackbar("success", "Carregando...");
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("idtemplate", idtemplate);
-        formData.append("idusuario", login.idusuario);
-        formData.append("data", new Date());
-        formData.append("nome_arquivo", file.name);
 
-        const uploadResponse = await axios.post(
-          "http://localhost:4000/api/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-
-        const idupload = uploadResponse.data.idupload;
-
-        const statusTimer = setInterval(async () => {
-          const statusResponse = await axios.get(
-            `http://localhost:4000/api/upload/is-template-valid/${idupload}`
-          );
-
-          const status = statusResponse.data.status;
-
-          if (status === "validado" || status === "invalido") {
-            clearInterval(statusTimer);
-            let message = "";
-
-            if (status === "validado") {
-              message = "Arquivo validado com sucesso";
-            } else if (status === "invalido") {
-              message = "Ocorreu um erro na validação do arquivo";
-            }
-
-            openSnackbar(status === "validado" ? "success" : "error", message);
-
-            setLoading(false);
-          }
-        }, 3000);
-      }
-    } catch (err) {
-      setLoading(false);
-      console.error("err on upload => ", err);
-      openSnackbar(
-        "error",
-        "Erro no upload. Por favor, tente novamente mais tarde."
-      );
-    }
-  };
+  function adjustModalState(isOpen, templateId) {
+    setModalState({ isOpen, templateId });
+  }
 
   const downloadTemplate = async (templateId) => {
     event.preventDefault();
@@ -192,23 +151,24 @@ export const TemplateUsuario = () => {
                         </td>
 
                         <td>
-                          <label className="upload" for={template.idtemplate}>
-                            <CloudArrowUp size={32} />
-                            <MaterialSnackbar
-                              type={snackbarType}
-                              open={snackbarOpen}
-                              onClose={() => setSnackbarOpen(false)}
-                            >
-                              {snackbarMessage}
-                            </MaterialSnackbar>
-                          </label>
-                          <input
-                            name={template.idtemplate}
-                            id={template.idtemplate}
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={handleFileChange}
-                          />
+                          <div>
+                            <label className="upload">
+                              <CloudArrowUp
+                                size={32}
+                                onClick={() => openModal(template.idtemplate)}
+                              />
+                            </label>
+                            {modalState.isOpen &&
+                              modalState.templateId === template.idtemplate && (
+                                <Modal
+                                  isOpen={true}
+                                  closeModal={closeModal}
+                                  template={template}
+                                  login={login}
+                                  handleModalState={adjustModalState}
+                                />
+                              )}
+                          </div>
                         </td>
                       </tr>
                     );

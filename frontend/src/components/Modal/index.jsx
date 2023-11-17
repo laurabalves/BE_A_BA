@@ -1,6 +1,5 @@
 import { CloudArrowUp } from "phosphor-react";
 import React, { useState } from "react";
-import { MaterialSnackbar } from "../SnackBar";
 
 import axios from "axios";
 import "./styles.css";
@@ -13,17 +12,9 @@ export function Modal({
   handleModalState,
 }) {
   const [selectedDir, setSelectedDir] = useState("Administração");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarType, setSnackbarType] = useState("");
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const [loading, setLoading] = useState(false);
 
-  function openSnackbar(type, message) {
-    console.log("abrindo snackbar:", type, message);
-    setSnackbarType(type);
-    setSnackbarMessage(message);
-    setSnackbarOpen(true);
-  }
   const handleFileChange = async (e) => {
     try {
       setLoading(true);
@@ -35,10 +26,7 @@ export function Modal({
 
       const file = e.target.files[0];
       if (file) {
-        openSnackbar("success", "Carregando...");
-        setTimeout(() => {
-          setSnackbarOpen(false);
-        }, 9000);
+        setTimeout(() => {}, 9000);
         const formData = new FormData();
         formData.append("idtemplate", idtemplate);
         formData.append("idusuario", login.idusuario);
@@ -79,10 +67,7 @@ export function Modal({
           } catch (err) {
             setLoading(false);
             console.error("err on status check => ", err);
-            openSnackbar(
-              "error",
-              "Erro na verificação do status. Tente novamente mais tarde."
-            );
+
             closeModal();
           }
         }, 1000);
@@ -90,10 +75,7 @@ export function Modal({
     } catch (err) {
       setLoading(false);
       console.error("err on upload => ", err);
-      openSnackbar(
-        "error",
-        "Erro no upload. Por favor, tente novamente mais tarde."
-      );
+
       closeModal();
     }
   };
@@ -121,6 +103,7 @@ export function Modal({
         >
           <CloudArrowUp size={32} />
         </label>
+
         <input
           name={template.idtemplate}
           id={template.idtemplate}
@@ -128,17 +111,6 @@ export function Modal({
           style={{ display: "none" }}
           onChange={handleFileChange}
         />
-        <MaterialSnackbar
-          type={snackbarType}
-          open={snackbarOpen}
-          onClose={() => {
-            console.log("Snackbar Fechado");
-            setSnackbarOpen(false);
-          }}
-          style={{ zIndex: 9999 }}
-        >
-          {snackbarMessage}
-        </MaterialSnackbar>
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ export function CriarTemplate() {
   return (
     <div className="testandooo">
       <div>
-        <h2 className="criar"> Criar template</h2>
+        <h2 className="criar"> Cadastrar template</h2>
         <p>Insira as informações abaixo:</p>
       </div>
 
