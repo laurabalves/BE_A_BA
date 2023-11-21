@@ -1,20 +1,13 @@
 div.in {
   display: flex;
   flex-direction: column;
-  height: 1000px;
+  height: 700px;
   padding: 30px;
   margin-top: 30px;
 }
 
-.charts-container {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 90px;
-  margin-left: 50px;
-}
-
 div.in h1 {
-  color: rgb(73, 50, 19);
+  color: rgb(0, 0, 0);
   text-align: center;
 }
 .custom-bg-color {

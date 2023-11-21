@@ -35,7 +35,7 @@ def validate_file():
 
         ext = file_path.split('.')[-1]
 
-        if ext == 'xlsx':
+        if ext == 'xlsx' or ext == 'xls':
             df = pd.read_excel(file_path, engine='openpyxl')
         elif ext == 'csv':
             df = pd.read_csv(file_path)

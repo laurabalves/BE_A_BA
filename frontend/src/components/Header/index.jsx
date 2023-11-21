@@ -52,7 +52,7 @@ export function Header() {
 
         {!!!login.isadm && (
           <Link className="header-link" to="/template-usuario">
-            <File size={32} /> Meus arquivos/templates
+            <File size={32} /> Meus templates
           </Link>
         )}
       </div>

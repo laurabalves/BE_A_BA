@@ -23,7 +23,7 @@ div.header-user-info {
 }
 
 div.header-info a.header-link {
-  border: 0;
+  border: none;
   background: transparent;
   cursor: pointer;
 
